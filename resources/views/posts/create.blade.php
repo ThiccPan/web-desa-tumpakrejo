@@ -21,5 +21,6 @@
     author: <input type="text" name="author" id=""><br>
     <input type="submit" value="submit" name="submit">
   </form>
+  <a href="/posts">kembali</a>
 </body>
 </html>

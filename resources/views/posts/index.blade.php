@@ -12,7 +12,6 @@
     <tr>
       <th>ID</th>
       <th>Title</th>
-      <th>Description</th>
       <th>Category</th>
       <th>Author</th>
       <th>Action</th>
@@ -21,15 +20,17 @@
       <tr>
         <td>{{ $post['id'] }}</td>
         <td>{{ $post['title'] }}</td>
-        <td>{{ $post['description'] }}</td>
         <td>{{ $post['category'] }}</td>
         <td>{{ $post['author'] }}</td>
-        <td><a href="/post/{{ $post->id }}/edit">edit</a> 
-        <form action="/post/{{ $post->id }}" method="post">
-          @csrf
-          @method('delete')
-          <input type="submit" name="submit" value="delete">
-        </form>
+        <td><a href="/posts/{{ $post->id }}">view</a> 
+          <br/>
+          <a href="/posts/{{ $post->id }}/edit">edit</a> 
+          <form action="/posts/{{ $post->id }}/destroy" method="post">
+            @csrf
+            @method('delete')
+            <input type="submit" name="submit" value="delete">
+          </form>
+        </td>
       </tr>
     @endforeach
   </table>

@@ -22,8 +22,10 @@ Route::get('/posts/create', [PostsController::class,'create']);
 
 Route::post('/posts/insert', [PostsController::class,'store']);
 
+Route::get('/posts/{id}', [PostsController::class,'show']);
+
 Route::get('/posts/{id}/edit', [PostsController::class,'edit']);
 
-Route::put('/posts/{id}', [PostsController::class,'update']);
+Route::put('/posts/{id}/update', [PostsController::class,'update']);
 
-Route::delete('/posts/{id}',[PostsController::class, 'destroy']);
+Route::delete('/posts/{id}/destroy',[PostsController::class, 'destroy']);
