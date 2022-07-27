@@ -15,7 +15,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Posts::all();
-        return view("posts.index",compact("posts"));
+        return view("admin.index",compact("posts"));
     }
 
     /**
@@ -25,7 +25,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view("posts.create");
+        return view("admin.create");
     }
 
     /**
@@ -37,7 +37,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         Posts::create($request->except(['_token','submit']));
-        return redirect('/posts');  
+        return redirect('/admin/posts');  
     }
 
     /**
@@ -48,7 +48,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
+        $postsView = Posts::find($id);
+        return view('admin.view',compact("postsView"));
     }
 
     /**
@@ -61,7 +62,7 @@ class PostsController extends Controller
     {
         $postsEdit = Posts::find($id);
         // dd($animeEdit);
-        return view("anime.edit",compact("postsEdit"));
+        return view("admin.edit",compact("postsEdit"));
     }
 
     /**
@@ -75,7 +76,7 @@ class PostsController extends Controller
     {
         $posts = Posts::find($id);
         $posts->update($request->except(['_token','submit']));
-        return redirect('/posts');
+        return redirect('/admin/posts');
     }
 
     /**
@@ -88,6 +89,6 @@ class PostsController extends Controller
     {
         $posts = Posts::find($id);
         $posts->delete();
-        return redirect('/posts');
+        return redirect('/admin/posts');
     }
 }
