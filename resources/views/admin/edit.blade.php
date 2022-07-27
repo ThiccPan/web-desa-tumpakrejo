@@ -7,7 +7,7 @@
   <title>Update Post</title>
 </head>
 <body>
-  <form action="/posts/{{ $postsEdit->id }}/update" method="post" enctype="multipart/form-data">
+  <form action="/admin/posts/{{ $postsEdit->id }}/update" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
     title: <input type="text" name="title" id="" value="{{ $postsEdit->title }}"><br>
@@ -20,5 +20,6 @@
 
     <input type="submit" value="submit" name="submit">
   </form>
+  <a href="/admin/posts">kembali</a>
 </body>
 </html>

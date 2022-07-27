@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>
-    form {
-      display:block;
-      
-    }
-  </style>
-  <title>Document</title>
-</head>
-<body>
+@extends('adminlte::page')
+
+@section('title', 'Add New Post')
+
+@section('content_header')
+    <h1>Create New Post</h1>
+@stop
+
+@section('content')
   <form action="/posts/insert" method="post" enctype="multipart/form-data">
     @csrf
     title: <input type="text" name="title" id=""><br>
@@ -21,6 +15,13 @@
     author: <input type="text" name="author" id=""><br>
     <input type="submit" value="submit" name="submit">
   </form>
-  <a href="/posts">kembali</a>
-</body>
-</html>
+  <a href="/admin/posts">kembali</a>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop

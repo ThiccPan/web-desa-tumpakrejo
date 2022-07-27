@@ -14,18 +14,28 @@ use App\Http\Controllers\PostsController;
 |
 */
 
-Route::get('/', [PostsController::class,'index']);
+Route::middleware(['auth'])->group(function(){
 
-Route::get('/posts', [PostsController::class,'index']);
+  Route::get('/admin', function(){
+    return view('admin.dashboard');
+  });
+  
+  Route::get('/admin/posts', [PostsController::class,'index']);
+  
+  Route::get('/admin/posts/create', [PostsController::class,'create']);
+  
+  Route::post('/admin/posts/insert', [PostsController::class,'store']);
+  
+  Route::get('/admin/posts/{id}', [PostsController::class,'show']);
+  
+  Route::get('/admin/posts/{id}/edit', [PostsController::class,'edit']);
+  
+  Route::put('/admin/posts/{id}/update', [PostsController::class,'update']);
+  
+  Route::delete('/admin/posts/{id}/destroy',[PostsController::class, 'destroy']);
 
-Route::get('/posts/create', [PostsController::class,'create']);
+});
 
-Route::post('/posts/insert', [PostsController::class,'store']);
+Auth::routes();
 
-Route::get('/posts/{id}', [PostsController::class,'show']);
-
-Route::get('/posts/{id}/edit', [PostsController::class,'edit']);
-
-Route::put('/posts/{id}/update', [PostsController::class,'update']);
-
-Route::delete('/posts/{id}/destroy',[PostsController::class, 'destroy']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
