@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Dashboard',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Desa</b>Tumpakrejo',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -229,7 +229,7 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -247,11 +247,18 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'posts',
+            'text'        => 'Posts',
             'url'         => 'admin/posts',
             'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'label'       => '',
+            'label_color' => '',
+        ],
+        [
+            'text'        => 'Potensi',
+            'url'         => 'admin/potensi',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => null,
+            'label_color' => '',
         ],
         ['header' => 'account_settings'],
         [

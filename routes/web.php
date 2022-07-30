@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PotensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,12 @@ use App\Http\Controllers\PostsController;
 
 Route::middleware(['auth'])->group(function(){
 
+  // dashboard
   Route::get('/admin', function(){
     return view('admin.dashboard');
   });
   
+  // posts route
   Route::get('/admin/posts', [PostsController::class,'index']);
   
   Route::get('/admin/posts/create', [PostsController::class,'create']);
@@ -33,6 +36,21 @@ Route::middleware(['auth'])->group(function(){
   Route::put('/admin/posts/{id}/update', [PostsController::class,'update']);
   
   Route::delete('/admin/posts/{id}/destroy',[PostsController::class, 'destroy']);
+
+  // potensi route
+  Route::get('/admin/potensi', [PotensiController::class,'index']);
+
+  Route::get('/admin/potensi/create', [PotensiController::class,'create']);
+
+  Route::post('/admin/potensi/store', [PotensiController::class,'store']);
+
+  Route::get('/admin/potensi/{slug}', [PotensiController::class,'show']);
+
+  Route::get('/admin/potensi/{slug}/edit', [PotensiController::class,'edit']);
+
+  Route::put('/admin/potensi/{slug}/update', [PotensiController::class,'update']);
+
+  Route::delete('/admin/potensi/{slug}/destroy', [PotensiController::class,'destroy']);
 
 });
 

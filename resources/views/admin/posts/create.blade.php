@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-  <form action="/posts/insert" method="post" enctype="multipart/form-data">
+  <form action="/admin/posts/insert" method="post" enctype="multipart/form-data">
     @csrf
     title: <input type="text" name="title" id=""><br>
     description: <input type="textarea" name="description" id=""><br>

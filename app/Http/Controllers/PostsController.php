@@ -15,7 +15,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Posts::all();
-        return view("admin.index",compact("posts"));
+        return view("admin.posts.index",compact("posts"));
     }
 
     /**
@@ -25,7 +25,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view("admin.create");
+        return view("admin.posts.create");
     }
 
     /**
@@ -49,7 +49,7 @@ class PostsController extends Controller
     public function show($id)
     {
         $postsView = Posts::find($id);
-        return view('admin.view',compact("postsView"));
+        return view('admin.posts.view',compact("postsView"));
     }
 
     /**
@@ -62,7 +62,7 @@ class PostsController extends Controller
     {
         $postsEdit = Posts::find($id);
         // dd($animeEdit);
-        return view("admin.edit",compact("postsEdit"));
+        return view("admin.posts.edit",compact("postsEdit"));
     }
 
     /**
