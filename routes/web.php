@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PotensiController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,15 @@ Route::middleware(['auth'])->group(function(){
   Route::get('/admin/produk/{slug}/edit', [ProdukController::class,'edit']);
   Route::put('/admin/produk/{slug}/update', [ProdukController::class,'update']);
   Route::delete('/admin/produk/{slug}/destroy', [ProdukController::class,'destroy']);
+
+  // program route
+  Route::get('/admin/program', [ProgramController::class,'index']);
+  Route::get('/admin/program/create', [ProgramController::class,'create']);
+  Route::post('/admin/program/store', [ProgramController::class,'store']);
+  Route::get('/admin/program/{slug}', [ProgramController::class,'show']);
+  Route::get('/admin/program/{slug}/edit', [ProgramController::class,'edit']);
+  Route::put('/admin/program/{slug}/update', [ProgramController::class,'update']);
+  Route::delete('/admin/program/{slug}/destroy', [ProgramController::class,'destroy']);
 });
 
 Auth::routes();

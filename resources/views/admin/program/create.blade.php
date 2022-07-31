@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Program')
+@section('title', 'Tambah Program Kerja')
 
 @section('content_header')
   @if ($errors->any())
@@ -12,7 +12,7 @@
       </ul>
   </div>
   @endif
-  <h1>Tambahkan Program Baru</h1>
+  <h1>Tambahkan Program Kerja Baru</h1>
 @stop
 
 @section('content')
@@ -62,7 +62,7 @@
       @enderror
     </div>
 
-    <div class="mb-1">
+    <div class="mb-3">
       <label for="penulis">Penulis: </label>
       <input type="text" name="penulis" id="penulis" class="form-control @error('penulis') is-invalid @enderror" value="{{ old('penulis') }}">
 
@@ -73,8 +73,10 @@
       @enderror
     </div>
 
-    <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-    <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
+    <div class="mb-3">
+      <input type="submit" value="Submit" name="submit" class="btn btn-primary">
+      <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
+    </div>
   </form>
 @stop
 

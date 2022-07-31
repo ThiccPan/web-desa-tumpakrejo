@@ -246,11 +246,19 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        ['header' => 'Berita'],
         [
             'text'        => 'Posts',
             'url'         => 'admin/posts',
             'icon'        => 'fas fa-fw fa-edit',
             'label'       => '',
+            'label_color' => '',
+        ],
+        [
+            'text'        => 'Program Kerja',
+            'url'         => 'admin/program',
+            'icon'        => 'fas fa-fw fa-handshake',
+            'label'       => null,
             'label_color' => '',
         ],
         [
@@ -267,7 +275,7 @@ return [
             'label'       => null,
             'label_color' => '',
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'Foto'],
         [
             'text' => 'profile',
             'url'  => 'admin/settings',
