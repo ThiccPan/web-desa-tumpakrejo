@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<section class="content">
+  <section class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-3 col-6">
@@ -55,7 +55,7 @@
             <div class="icon">
               <i class="far fa fa-shopping-basket"></i>
             </div>
-            <a href="/produk" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/admin/produk" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
@@ -91,12 +91,13 @@
   </section>
 @stop
 
+@section('footer')
+@include('partials.footer')
+@stop
+
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
-<script>
-    console.log('Hi!'); 
-</script>
 @stop

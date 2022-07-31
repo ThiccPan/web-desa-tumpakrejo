@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Potensi extends Model
+class Produk extends Model
 {
     use HasFactory;
     use Sluggable;
 
-    protected $table = 'potensi';
+    protected $table = 'produk';
     protected $guarded = [];
 
     public function sluggable(): array

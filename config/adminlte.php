@@ -249,14 +249,21 @@ return [
         [
             'text'        => 'Posts',
             'url'         => 'admin/posts',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-fw fa-edit',
             'label'       => '',
             'label_color' => '',
         ],
         [
             'text'        => 'Potensi',
             'url'         => 'admin/potensi',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'fas fa-fw fa-universal-access',
+            'label'       => null,
+            'label_color' => '',
+        ],
+        [
+            'text'        => 'Produk',
+            'url'         => 'admin/produk',
+            'icon'        => 'fas fa-fw fa-shopping-basket',
             'label'       => null,
             'label_color' => '',
         ],

@@ -19,10 +19,10 @@
   <form action="/admin/potensi/store" method="post" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
-      <label for="judul_potensi">Judul Potensi:</label> 
-      <input type="text" name="judul_potensi" id="" class="@error('judul_potensi') is-invalid @enderror form-control" maxlength="255" value="{{ old('judul_potensi') }}">
+      <label for="judul">Judul Potensi:</label> 
+      <input type="text" name="judul" id="" class="@error('judul') is-invalid @enderror form-control" maxlength="255" value="{{ old('judul') }}">
 
-      @error('judul_potensi')
+      @error('judul')
       <div class="invalid-feedback">
           {{ $message }}
       </div>
@@ -30,10 +30,10 @@
     </div>
     
     <div class="mb-3">
-      <label for="konten" class="form-label">Deskripsi konten:</label>
-      <textarea class="form-control @error('konten') is-invalid @enderror" id="konten" name="konten" rows="6"> {{ old('konten') }}</textarea>
+      <label for="deskripsi" class="form-label">Deskripsi:</label>
+      <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ old('deskripsi') }}</textarea>
 
-      @error('konten')
+      @error('deskripsi')
       <div class="invalid-feedback">
           {{ $message }}
       </div>
@@ -44,7 +44,7 @@
       <label for="gambar" class="form-label">Gambar</label>
       <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
 
-      @error('konten')
+      @error('deskripsi')
       <div class="invalid-feedback">
           {{ $message }}
       </div>
@@ -65,6 +65,10 @@
     <input type="submit" value="Submit" name="submit" class="btn btn-primary">
     <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
   </form>
+@stop
+
+@section('footer')
+@include('partials.footer')
 @stop
 
 @section('css')

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Potensi;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class PotensiController extends Controller
+class ProdukController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,13 +17,13 @@ class PotensiController extends Controller
      */
     public function index()
     {
-        $potensis = Potensi::paginate(10);  
+        $produks = Produk::paginate(10);  
 
         if (request('search')) {
-            $potensis = Potensi::where('judul', 'like', '%' . request('search') . '%')->paginate(10);
+            $produks = Produk::where('judul', 'like', '%' . request('search') . '%')->paginate(10);
         }
 
-        return view('admin.potensi.index',compact('potensis'));
+        return view('admin.produk.index',compact('produks'));
     }
 
     /**
@@ -33,7 +33,7 @@ class PotensiController extends Controller
      */
     public function create()
     {
-        return view('admin.potensi.create');
+        return view('admin.produk.create');
     }
 
     /**
@@ -49,6 +49,7 @@ class PotensiController extends Controller
             'deskripsi' => 'required',
             'slug' => '',
             'gambar' => 'nullable',
+            'tanggal' => 'required',
             'penulis' => 'required'
         ]);
 
@@ -66,16 +67,17 @@ class PotensiController extends Controller
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = '';
 
-        Potensi::create([
+        Produk::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
             'gambar' => $validated['gambar'],
+            'tanggal' => $validated['tanggal'],
             'penulis' => $validated['penulis']
         ]);
 
-        $request->session()->flash('msg',"Data potensi berhasil ditambahkan");
+        $request->session()->flash('msg',"Data produk berhasil ditambahkan");
 
-        return redirect('/admin/potensi');
+        return redirect('/admin/produk');
     }
 
     /**
@@ -86,8 +88,8 @@ class PotensiController extends Controller
      */
     public function show($slug)
     {
-        $potensis = Potensi::where('slug',$slug)->first();
-        return view('admin.potensi.view',compact("potensis"));
+        $produk = Produk::where('slug',$slug)->first();
+        return view('admin.produk.view',compact("produk"));
     }
 
     /**
@@ -98,8 +100,8 @@ class PotensiController extends Controller
      */
     public function edit($slug)
     {
-        $potensi = Potensi::where('slug',$slug)->first();
-        return view('admin.potensi.edit', compact('potensi'));
+        $produk = Produk::where('slug',$slug)->first();
+        return view('admin.produk.edit',compact("produk"));
     }
 
     /**
@@ -111,13 +113,14 @@ class PotensiController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        $potensi = Potensi::where('slug',$slug)->first();
+        $produk = Produk::where('slug',$slug)->first(   );
 
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
             'slug' => '',
             'gambar' => 'nullable',
+            'tanggal' => 'required',
             'penulis' => 'required'
         ]);
 
@@ -131,22 +134,23 @@ class PotensiController extends Controller
         $validated = $validator->validated();
 
         if ($request->file('gambar')) {
-            if (Storage::exists('post-images/' . $potensi->gambar)) {
-                Storage::delete('post-images/' . $potensi->gambar);
+            if (Storage::exists('post-images/' . $produk->gambar)) {
+                Storage::delete('post-images/' . $produk->gambar);
             }
             $validated['gambar'] = $request->file('gambar')->store('post-images');
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = $potensi->gambar;
+        } else $validated['gambar'] = $produk->gambar;
 
-        $potensi->judul = $validated['judul'];
-        $potensi->deskripsi = $validated['deskripsi'];
-        $potensi->gambar = $validated['gambar'];
-        $potensi->penulis = $validated['penulis'];
-        $potensi->save();
+        $produk->judul = $validated['judul'];
+        $produk->deskripsi = $validated['deskripsi'];
+        $produk->gambar = $validated['gambar'];
+        $produk->tanggal = $validated['tanggal'];
+        $produk->penulis = $validated['penulis'];
+        $produk->save();
 
-        $request->session()->flash('msg',"Data potensi berhasil diubah");
+        $request->session()->flash('msg',"Data produk berhasil diubah");
 
-        return redirect('/admin/potensi');
+        return redirect('/admin/produk');
     }
 
     /**
@@ -157,14 +161,14 @@ class PotensiController extends Controller
      */
     public function destroy($slug)
     {
-        $potensi = Potensi::where('slug',$slug)->first(); 
+        $produk = Produk::where('slug',$slug)->first(); 
         
-        if (Storage::exists('post-images/' . $potensi->gambar)) {
-            Storage::delete('post-images/' . $potensi->gambar);
+        if (Storage::exists('post-images/' . $produk->gambar)) {
+            Storage::delete('post-images/' . $produk->gambar);
         } else {
             dd('file not found');
         }
-        $potensi->delete();
+        $produk->delete();
         return redirect('/admin/potensi');
     }
 }

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Berita')
+@section('title', 'Produk')
 
 @section('content_header')
-<h1>Detail Potensi</h1>
+<h1>Detail Produk</h1>
 @stop
 
 @section('content')
@@ -11,15 +11,15 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex flex-row justify-content-end">
-        <form action="/admin/potensi/{{ $potensis->slug }}/destroy" method="post">
+        <form action="/admin/produk/{{ $produk->slug }}/destroy" method="post">
           @csrf
           @method('delete')
 
-          <a href="/admin/potensi" class="btn btn-secondary">
+          <a href="/admin/produk" class="btn btn-secondary">
             Kembali
           </a>
 
-          <a class="btn btn-warning" href="/admin/potensi/{{ $potensis->slug }}/edit">
+          <a class="btn btn-warning" href="/admin/produk/{{ $produk->slug }}/edit">
             Ubah
           </a>
 
@@ -30,28 +30,29 @@
     <div class="card-body">
       <strong>Judul</strong>
       <p class="text-muted">
-        {{ $potensis->judul }}
+        {{ $produk->judul }}
       </p>
       <hr>
       <strong>Slug</strong>
       <p class="text-muted">
-        {{ $potensis->slug }}
+        {{ $produk->slug }}
       </p>
       <hr>
       <strong>penulis</strong>
-      <p class="text-muted">{{ $potensis->penulis }}</p>
+      <p class="text-muted">{{ $produk->penulis }}</p>
       <hr>
       <strong>Deskripsi</strong>
       <p class="text-muted">
-        {{ $potensis->deskripsi }}
+        {{ $produk->deskripsi }}
       </p>
       <hr>
       <strong>Tanggal</strong>
-      <p class="text-muted">{{ $potensis->updated_at }}</p>
+      <p class="text-muted">{{ $produk->updated_at }}</p>
       <hr>
       <strong>Gambar</strong>
       <br>
-      <img src="{{ asset('storage/' . $potensis->gambar) }}" alt="{{ $potensis->gambar }}" style="width: 300px; height:300px">
+      <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->gambar }}"
+        style="width: 300px; height:300px">
     </div>
   </div>
 </section>

@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('potensi', function (Blueprint $table) {
+        Schema::create('produk', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
             $table->string('slug')->unique();
             $table->longText('deskripsi');
             $table->string('gambar')->nullable();
+            $table->date('tanggal');
             $table->timestamps();
             $table->string('penulis');
         });
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('potensi');
+        Schema::dropIfExists('produk');
     }
 };

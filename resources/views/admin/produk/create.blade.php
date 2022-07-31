@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Add New Post')
+@section('title', 'Tambah Produk')
 
 @section('content_header')
   @if ($errors->any())
@@ -12,17 +12,15 @@
       </ul>
   </div>
   @endif
-  <h1>Tambahkan Potensi Baru</h1>
+  <h1>Tambahkan Produk Baru</h1>
 @stop
 
 @section('content')
-  <form action="/admin/potensi/{{ $potensi->slug }}/update" method="post" enctype="multipart/form-data">
-    @method('put')
+  <form action="/admin/produk/store" method="post" enctype="multipart/form-data">
     @csrf
-
     <div class="mb-3">
-      <label for="judul">Judul Potensi:</label> 
-      <input type="text" name="judul" id="" class="@error('judul') is-invalid @enderror form-control" maxlength="255" value="{{ $potensi->judul }}">
+      <label for="judul">Judul Produk:</label> 
+      <input type="text" name="judul" id="" class="@error('judul') is-invalid @enderror form-control" maxlength="255" value="{{ old('judul') }}">
 
       @error('judul')
       <div class="invalid-feedback">
@@ -33,7 +31,7 @@
     
     <div class="mb-3">
       <label for="deskripsi" class="form-label">Deskripsi:</label>
-      <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ $potensi->deskripsi }}</textarea>
+      <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ old('deskripsi') }}</textarea>
 
       @error('deskripsi')
       <div class="invalid-feedback">
@@ -44,10 +42,20 @@
 
     <div class="mb-3">
       <label for="gambar" class="form-label">Gambar</label>
-      <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror" value="{{ $potensi->gambar }}">
-      <img src="{{ asset('storage/' . $potensi->gambar) }}" alt="Gambar lama tidak ditemukan" style="width: 300px; height:300px;">
-      
+      <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
+
       @error('deskripsi')
+      <div class="invalid-feedback">
+          {{ $message }}
+      </div>
+      @enderror
+    </div>
+
+    <div class="mb-3">
+      <label for="tanggal">tanggal:</label>
+      <input type="date" name="tanggal" class="form-control w-25 @error('tanggal') is-invalid @enderror">
+
+      @error('tanggal')
       <div class="invalid-feedback">
           {{ $message }}
       </div>
@@ -56,7 +64,7 @@
 
     <div class="mb-1">
       <label for="penulis">Penulis: </label>
-      <input type="text" name="penulis" id="penulis" class="form-control @error('penulis') is-invalid @enderror" value="{{ $potensi->penulis }}">
+      <input type="text" name="penulis" id="penulis" class="form-control @error('penulis') is-invalid @enderror" value="{{ old('penulis') }}">
 
       @error('penulis')
       <div class="invalid-feedback">
@@ -67,7 +75,6 @@
 
     <input type="submit" value="Submit" name="submit" class="btn btn-primary">
     <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
-  
   </form>
 @stop
 
@@ -80,4 +87,5 @@
 @stop
 
 @section('js')
+
 @stop

@@ -15,7 +15,6 @@
     <input type="text" name="search" class="form-control" placeholder="Search" aria-describedby="button-search"
       value="{{ request('search') }}">
   </div>
-  </div>
 </form>
 
 <div class="row">
@@ -44,7 +43,7 @@
             @foreach ($potensis as $potensi)
             <tr>
               <td>{{ $loop->iteration }}</td>
-              <td>{{ $potensi['judul_potensi'] }}</td>
+              <td>{{ $potensi['judul'] }}</td>
               <td>{{ $potensi['updated_at'] }}</td>
               <td>{{ $potensi['penulis'] }}</td>
               <td>
@@ -72,6 +71,10 @@
     {{ $potensis->links() }}
   </div>
 </div>
+@stop
+
+@section('footer')
+@include('partials.footer')
 @stop
 
 @section('css')
