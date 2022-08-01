@@ -5,6 +5,7 @@ use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PotensiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\PengurusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,16 @@ Route::middleware(['auth'])->group(function(){
   Route::get('/admin/program/{slug}/edit', [ProgramController::class,'edit']);
   Route::put('/admin/program/{slug}/update', [ProgramController::class,'update']);
   Route::delete('/admin/program/{slug}/destroy', [ProgramController::class,'destroy']);
+  
+  // pengurus route
+  Route::get('/admin/pengurus', [PengurusController::class,'index']);
+  Route::get('/admin/pengurus/create', [PengurusController::class,'create']);
+  Route::post('/admin/pengurus/store', [PengurusController::class,'store']);
+  Route::get('/admin/pengurus/{NIP}', [PengurusController::class,'show']);
+  Route::get('/admin/pengurus/{NIP}/edit', [PengurusController::class,'edit']);
+  Route::put('/admin/pengurus/{NIP}/update', [PengurusController::class,'update']);
+  Route::delete('/admin/pengurus/{NIP}/destroy', [PengurusController::class,'destroy']);
+
 });
 
 Auth::routes();
