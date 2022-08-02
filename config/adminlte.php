@@ -324,11 +324,11 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'Data'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+            'text'       => 'Pengurus',
+            'url'        => 'admin/pengurus',
+            'icon'       => 'fas fa-fw fa-users',
         ],
         [
             'text'       => 'warning',
@@ -444,6 +444,21 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'Summernote' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css',
                 ],
             ],
         ],
