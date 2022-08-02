@@ -32,7 +32,7 @@
     
     <div class="mb-3">
       <label for="deskripsi" class="form-label">Deskripsi:</label>
-      <x-adminlte-text-editor name="deskripsi" id="teBasic" enable-old-support/>
+      <x-adminlte-text-editor name="deskripsi" id="teBasic" :config="$config" enable-old-support/>
 
       @error('deskripsi')
       <div class="invalid-feedback">
@@ -76,7 +76,7 @@
     </div>
 
     <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-    <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
+    <a href="/admin/produk" class="btn btn-secondary">Kembali</a>
   </form>
 @stop
 

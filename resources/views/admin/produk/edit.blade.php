@@ -34,7 +34,7 @@
     <div class="mb-3">
       <label for="deskripsi" class="form-label">Deskripsi:</label>
       {{-- <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ $produk->deskripsi }}</textarea> --}}
-      <x-adminlte-text-editor name="deskripsi" id="teBasic" enable-old-support>
+      <x-adminlte-text-editor name="deskripsi" id="teBasic" enable-old-support :config="$config">
         {!! $produk->deskripsi !!}
       </x-adminlte-text-editor>
 
@@ -81,7 +81,7 @@
 
     <div class="mb-3">
       <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-      <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
+      <a href="/admin/produk" class="btn btn-secondary">Kembali</a>
     </div>
   </form>
 @stop

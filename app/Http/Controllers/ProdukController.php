@@ -33,7 +33,9 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        return view('admin.produk.create');
+        $config = $this->configTxtOnly;
+
+        return view('admin.produk.create',compact('config'));
     }
 
     /**
@@ -63,8 +65,7 @@ class ProdukController extends Controller
         }
 
         $validated = $validator->validated();
-
-        // 
+        
         $deskripsi = $request->deskripsi;
         $dom = new \domdocument();
         $dom->loadHtml($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -110,8 +111,9 @@ class ProdukController extends Controller
      */
     public function edit($slug)
     {
+        $config = $this->configTxtOnly;
         $produk = Produk::where('slug',$slug)->first();
-        return view('admin.produk.edit',compact("produk"));
+        return view('admin.produk.edit',compact("produk","config"));
     }
 
     /**
