@@ -1,6 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Tambah Produk')
+@section('plugins.Summernote', true)
 
 @section('content_header')
   @if ($errors->any())
@@ -32,7 +33,10 @@
     
     <div class="mb-3">
       <label for="deskripsi" class="form-label">Deskripsi:</label>
-      <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ $produk->deskripsi }}</textarea>
+      {{-- <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ $produk->deskripsi }}</textarea> --}}
+      <x-adminlte-text-editor name="deskripsi" id="teBasic" enable-old-support>
+        {!! $produk->deskripsi !!}
+      </x-adminlte-text-editor>
 
       @error('deskripsi')
       <div class="invalid-feedback">
@@ -44,7 +48,7 @@
     <div class="mb-3">
       <label for="gambar" class="form-label">Gambar</label>
       <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror" value="{{ $produk->gambar }}">
-      <img src="{{ asset('storage/' . $produk->gambar) }}" alt="Gambar lama tidak ditemukan" style="width: 300px; height:300px;">
+      <img src="{{ asset('storage/' . $produk->gambar) }}" alt="Gambar lama tidak ditemukan" style="max-height: 300px; max-width: 300px;" class="img-responsive">
 
       @error('deskripsi')
       <div class="invalid-feedback">

@@ -44,6 +44,8 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
@@ -62,8 +64,16 @@ class ProdukController extends Controller
 
         $validated = $validator->validated();
 
+        // 
+        $deskripsi = $request->deskripsi;
+        $dom = new \domdocument();
+        $dom->loadHtml($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $finaldesk = $dom->saveHtml();
+        $validated['deskripsi'] = $finaldesk;
+
         if ($request->file('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = '';
 
@@ -133,11 +143,18 @@ class ProdukController extends Controller
 
         $validated = $validator->validated();
 
+        $deskripsi = $request->deskripsi;
+        $dom = new \domdocument();
+        $dom->loadHtml($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $finaldesk = $dom->saveHtml();
+        $validated['deskripsi'] = $finaldesk;
+
         if ($request->file('gambar')) {
             if (Storage::exists('post-images/' . $produk->gambar)) {
                 Storage::delete('post-images/' . $produk->gambar);
             }
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = $produk->gambar;
 
@@ -167,6 +184,6 @@ class ProdukController extends Controller
             Storage::delete('post-images/' . $produk->gambar);
         }
         $produk->delete();
-        return redirect('/admin/potensi');
+        return redirect('/admin/produk');
     }
 }

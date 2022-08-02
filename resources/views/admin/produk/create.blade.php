@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 
+@section('plugins.Summernote', true)
 @section('title', 'Tambah Program')
 
 @section('content_header')
@@ -16,7 +17,7 @@
 @stop
 
 @section('content')
-  <form action="/admin/program/store" method="post" enctype="multipart/form-data">
+  <form action="/admin/produk/store" method="post" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
       <label for="judul">Judul Program:</label> 
@@ -31,7 +32,7 @@
     
     <div class="mb-3">
       <label for="deskripsi" class="form-label">Deskripsi:</label>
-      <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ old('deskripsi') }}</textarea>
+      <x-adminlte-text-editor name="deskripsi" id="teBasic" enable-old-support/>
 
       @error('deskripsi')
       <div class="invalid-feedback">
@@ -39,6 +40,7 @@
       </div>
       @enderror
     </div>
+
 
     <div class="mb-3">
       <label for="gambar" class="form-label">Gambar</label>
