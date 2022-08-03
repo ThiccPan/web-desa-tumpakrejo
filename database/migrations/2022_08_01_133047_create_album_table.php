@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('sampul');
             $table->string('slug');
             $table->timestamps();
-            $table->text('keterangan');
+            $table->string('keterangan');
         });
     }
 
