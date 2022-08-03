@@ -52,7 +52,7 @@
       <strong>Gambar</strong>
       <br>
       <img src="{{ asset('storage/' . $program->gambar) }}" alt="{{ $program->gambar }}"
-        style="width: 300px; height:300px">
+        style="max-height: 300px; max-width: 300px;" class="img-responsive">
     </div>
   </div>
 </section>

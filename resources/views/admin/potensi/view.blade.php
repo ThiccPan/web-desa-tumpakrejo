@@ -51,7 +51,7 @@
       <hr>
       <strong>Gambar</strong>
       <br>
-      <img src="{{ asset('storage/' . $potensis->gambar) }}" alt="{{ $potensis->gambar }}" style="width: 300px; height:300px">
+      <img src="{{ asset('storage/' . $potensis->gambar) }}" alt="{{ $potensis->gambar }}" style="max-height: 300px; max-width: 300px;" class="img-responsive">
     </div>
   </div>
 </section>

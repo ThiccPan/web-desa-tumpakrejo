@@ -44,7 +44,7 @@
     <div class="mb-3">
       <label for="gambar" class="form-label">Gambar</label>
       <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror" value="{{ $program->gambar }}">
-      <img src="{{ asset('storage/' . $program->gambar) }}" alt="Gambar lama tidak ditemukan" style="width: 300px; height:300px;">
+      <img src="{{ asset('storage/' . $program->gambar) }}" alt="Gambar lama tidak ditemukan" style="max-height: 300px; max-width: 300px;" class="img-responsive">
 
       @error('deskripsi')
       <div class="invalid-feedback">
