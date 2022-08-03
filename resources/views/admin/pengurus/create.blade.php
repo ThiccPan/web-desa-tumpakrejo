@@ -69,7 +69,7 @@
         <label for="gambar" class="form-label">Gambar/Pas Foto</label>
         <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
   
-        @error('deskripsi')
+        @error('gambar')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
