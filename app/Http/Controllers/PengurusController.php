@@ -64,7 +64,8 @@ class PengurusController extends Controller
         $validated = $validator->validated();
 
         if ($request->file('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = '';
 
@@ -134,15 +135,16 @@ class PengurusController extends Controller
         $validated = $validator->validated();
 
         if ($request->file('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = $pengurus->gambar;
 
-            $pengurus->NIP = $validated['NIP'];
-            $pengurus->jabatan = $validated['jabatan'];
-            $pengurus->nama = $validated['nama'];
-            $pengurus->tanggal_menjabat = $validated['tanggal_menjabat'];
-            $pengurus->gambar = $validated['gambar'];
+        $pengurus->NIP = $validated['NIP'];
+        $pengurus->jabatan = $validated['jabatan'];
+        $pengurus->nama = $validated['nama'];
+        $pengurus->tanggal_menjabat = $validated['tanggal_menjabat'];
+        $pengurus->gambar = $validated['gambar'];
 
         $request->session()->flash('msg',"Data pengurus berhasil ditambahkan");
 

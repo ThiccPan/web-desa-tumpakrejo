@@ -63,7 +63,8 @@ class ProgramController extends Controller
         $validated = $validator->validated();
 
         if ($request->file('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = '';
 
@@ -137,7 +138,8 @@ class ProgramController extends Controller
             if (Storage::exists('post-images/' . $program->gambar)) {
                 Storage::delete('post-images/' . $program->gambar);
             }
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = $program->gambar;
 

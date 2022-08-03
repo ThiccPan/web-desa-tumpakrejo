@@ -62,7 +62,8 @@ class PotensiController extends Controller
         $validated = $validator->validated();
 
         if ($request->file('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = '';
 
@@ -134,7 +135,8 @@ class PotensiController extends Controller
             if (Storage::exists('post-images/' . $potensi->gambar)) {
                 Storage::delete('post-images/' . $potensi->gambar);
             }
-            $validated['gambar'] = $request->file('gambar')->store('post-images');
+            $reqGambar = $request->file('gambar');
+            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
         } else $validated['gambar'] = $potensi->gambar;
 
