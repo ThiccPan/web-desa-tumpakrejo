@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PotensiController;
@@ -69,7 +70,15 @@ Route::middleware(['auth'])->group(function(){
   Route::get('/admin/pengurus/{NIP}/edit', [PengurusController::class,'edit']);
   Route::put('/admin/pengurus/{NIP}/update', [PengurusController::class,'update']);
   Route::delete('/admin/pengurus/{NIP}/destroy', [PengurusController::class,'destroy']);
-
+  
+  // Album route
+  Route::get('/admin/album', [AlbumController::class,'index']);
+  Route::get('/admin/album/create', [AlbumController::class,'create']);
+  Route::post('/admin/album/store', [AlbumController::class,'store']);
+  Route::get('/admin/album/{id}/edit', [AlbumController::class,'edit']);
+  Route::put('/admin/album/{id}/update', [AlbumController::class,'update']);
+  Route::delete('/admin/album/{id}/destroy', [AlbumController::class,'destroy']);
+  
 });
 
 Auth::routes();
