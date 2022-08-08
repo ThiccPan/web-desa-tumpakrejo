@@ -19,7 +19,7 @@
 <div class="card card-default">
   <div class="card-body">
 
-    <form action="/admin/potensi/{{ $potensi->slug }}/update" method="post" enctype="multipart/form-data">
+    <form action="/admin/potensi/{{ $potensi->slug }}" method="post" enctype="multipart/form-data">
       @method('put')
       @csrf
   

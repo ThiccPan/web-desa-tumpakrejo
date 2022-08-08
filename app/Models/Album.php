@@ -18,13 +18,19 @@ class Album extends Model
     {
         return [
             'slug' => [
-                'source' => 'nama'
+                'source' => 'nama',
+                'onUpdate' => true
             ]
         ];
     }
 
     public function gambar()
     {
-        return $this->hasMany(Gambar::class);
+        return $this->morphMany(Gambar::class,'gambarable');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

@@ -58,11 +58,15 @@
                   <td>{{ $album->updated_at }}</td>
                   <td>{{ $album->keterangan }}</td>
                   <td>
-                    <form action="/admin/album/{{ $album->id }}/destroy" method="post">
+                    <form action="/admin/album/{{ $album->slug }}/destroy" method="post">
                       @csrf
                       @method('delete')
             
-                      <a class="btn btn-warning" href="/admin/album/{{ $album->id }}/edit">
+                      <a class="btn btn-success" href="/admin/album/{{ $album->slug }}">
+                        Lihat
+                      </a>
+
+                      <a class="btn btn-warning" href="/admin/album/{{ $album->slug }}/edit">
                         Ubah
                       </a>
             

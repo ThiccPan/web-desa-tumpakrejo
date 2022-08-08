@@ -47,7 +47,7 @@
               <td>{{ $potensi['updated_at'] }}</td>
               <td>{{ $potensi['penulis'] }}</td>
               <td>
-                <form action="/admin/potensi/{{ $potensi->slug }}/destroy" method="post">
+                <form action="/admin/potensi/{{ $potensi->slug }}" method="post">
                   @csrf
                   @method('delete')
         

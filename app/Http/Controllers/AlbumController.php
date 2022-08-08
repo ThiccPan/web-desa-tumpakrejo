@@ -17,7 +17,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::paginate(10);
+        $albums = Album::with('gambar')->paginate(10);
         return view('admin.album.index',compact('albums'));
     }
 
@@ -43,7 +43,7 @@ class AlbumController extends Controller
             'nama' => 'required|max:255',
             'slug' => '',
             'sampul' => 'nullable',
-            'keterangan' => 'nullable|max:50'
+            'keterangan' => 'required|max:50'
         ]);
 
         if ($validator->fails()) {
@@ -89,9 +89,8 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Album $album)
     {
-        $album = Album::find($id);
         return view('admin.album.edit',compact('album'));
     }
 
@@ -110,7 +109,7 @@ class AlbumController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
             'slug' => '',
-            'sampul' => 'required',
+            'sampul' => 'nullable',
             'keterangan' => 'nullable|max:50'
         ]);
 
@@ -130,7 +129,7 @@ class AlbumController extends Controller
             $reqGambar = $request->file('sampul');
             $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
-        } else $validated['sampul'] = $album->gambar;
+        } else $validated['sampul'] = $album->sampul;
 
         $album->nama = $validated['nama'];
         $album->keterangan = $validated['keterangan'];

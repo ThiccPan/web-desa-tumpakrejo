@@ -170,6 +170,6 @@ class ProgramController extends Controller
         }
 
         $program->delete();
-        return redirect('/admin/potensi');
+        return redirect('/admin/program');
     }
 }

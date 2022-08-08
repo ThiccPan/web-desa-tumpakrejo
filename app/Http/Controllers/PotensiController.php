@@ -82,24 +82,23 @@ class PotensiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $potensi
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Potensi $potensi)
     {
-        $potensis = Potensi::where('slug',$slug)->first();
-        return view('admin.potensi.view',compact("potensis"));
+        // dd($potensi);
+        return view('admin.potensi.view',compact("potensi"));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Potensi  $potensi
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit(Potensi $potensi)
     {
-        $potensi = Potensi::where('slug',$slug)->first();
         return view('admin.potensi.edit', compact('potensi'));
     }
 
@@ -110,10 +109,8 @@ class PotensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, Potensi $potensi)
     {
-        $potensi = Potensi::where('slug',$slug)->first();
-
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
@@ -157,10 +154,8 @@ class PotensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
-    {
-        $potensi = Potensi::where('slug',$slug)->first(); 
-        
+    public function destroy(Potensi $potensi)
+    {    
         if (Storage::exists('post-images/' . $potensi->gambar)) {
             Storage::delete('post-images/' . $potensi->gambar);
         } else {

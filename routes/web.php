@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\GambarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PotensiController;
@@ -36,13 +37,7 @@ Route::middleware(['auth'])->group(function(){
   Route::delete('/admin/posts/{id}/destroy',[PostsController::class, 'destroy']);
 
   // potensi route
-  Route::get('/admin/potensi', [PotensiController::class,'index']);
-  Route::get('/admin/potensi/create', [PotensiController::class,'create']);
-  Route::post('/admin/potensi/store', [PotensiController::class,'store']);
-  Route::get('/admin/potensi/{slug}', [PotensiController::class,'show']);
-  Route::get('/admin/potensi/{slug}/edit', [PotensiController::class,'edit']);
-  Route::put('/admin/potensi/{slug}/update', [PotensiController::class,'update']);
-  Route::delete('/admin/potensi/{slug}/destroy', [PotensiController::class,'destroy']);
+  Route::resource('/admin/potensi', PotensiController::class);
 
   // produk route
   Route::get('/admin/produk', [ProdukController::class,'index']);
@@ -75,12 +70,24 @@ Route::middleware(['auth'])->group(function(){
   Route::get('/admin/album', [AlbumController::class,'index']);
   Route::get('/admin/album/create', [AlbumController::class,'create']);
   Route::post('/admin/album/store', [AlbumController::class,'store']);
-  Route::get('/admin/album/{id}/edit', [AlbumController::class,'edit']);
+  Route::get('/admin/album/{album}/edit', [AlbumController::class,'edit']);
   Route::put('/admin/album/{id}/update', [AlbumController::class,'update']);
   Route::delete('/admin/album/{id}/destroy', [AlbumController::class,'destroy']);
+
+  Route::post('/admin/album/{album}/store', [GambarController::class,'store']);
+  Route::get('/admin/album/{album}', [GambarController::class,'show']);
+  Route::get('/admin/album/{album}/create', [GambarController::class,'create']);
+  Route::get('/admin/album/{album}/{gambar}', [GambarController::class,'edit']);
+  Route::delete('/admin/album/destroy/{gambar}', [GambarController::class,'destroy']);
+  Route::put('/admin/album/update/{gambar}', [GambarController::class,'update']);
   
+  // Gambar route
+  // Route::resource('/admin/gambar', GambarController::class);
+
+  Route::get('/admin/gambar', [GambarController::class,'index']);
+  // Route::get('/admin/gambar/{NIP}', [GambarController::class,'show']);
 });
 
-Auth::routes();
+Auth::routes(['register'=>false]);  
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

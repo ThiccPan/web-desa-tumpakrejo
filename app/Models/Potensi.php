@@ -22,4 +22,9 @@ class Potensi extends Model
             ]
         ];
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

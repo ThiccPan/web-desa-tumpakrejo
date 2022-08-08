@@ -11,7 +11,7 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex flex-row justify-content-end">
-        <form action="/admin/potensi/{{ $potensis->slug }}/destroy" method="post">
+        <form action="/admin/potensi/{{ $potensi->slug }}" method="post">
           @csrf
           @method('delete')
 
@@ -19,7 +19,7 @@
             Kembali
           </a>
 
-          <a class="btn btn-warning" href="/admin/potensi/{{ $potensis->slug }}/edit">
+          <a class="btn btn-warning" href="/admin/potensi/{{ $potensi->slug }}/edit">
             Ubah
           </a>
 
@@ -30,28 +30,28 @@
     <div class="card-body">
       <strong>Judul</strong>
       <p class="text-muted">
-        {{ $potensis->judul }}
+        {{ $potensi->judul }}
       </p>
       <hr>
       <strong>Slug</strong>
       <p class="text-muted">
-        {{ $potensis->slug }}
+        {{ $potensi->slug }}
       </p>
       <hr>
       <strong>penulis</strong>
-      <p class="text-muted">{{ $potensis->penulis }}</p>
+      <p class="text-muted">{{ $potensi->penulis }}</p>
       <hr>
       <strong>Deskripsi</strong>
       <p class="text-muted">
-        {{ $potensis->deskripsi }}
+        {{ $potensi->deskripsi }}
       </p>
       <hr>
       <strong>Tanggal</strong>
-      <p class="text-muted">{{ $potensis->updated_at }}</p>
+      <p class="text-muted">{{ $potensi->updated_at }}</p>
       <hr>
       <strong>Gambar</strong>
       <br>
-      <img src="{{ asset('storage/' . $potensis->gambar) }}" alt="{{ $potensis->gambar }}" style="max-height: 300px; max-width: 300px;" class="img-responsive">
+      <img src="{{ asset('storage/' . $potensi->gambar) }}" alt="{{ $potensi->gambar }}" style="max-height: 300px; max-width: 300px;" class="img-responsive">
     </div>
   </div>
 </section>

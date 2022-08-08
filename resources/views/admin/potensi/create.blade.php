@@ -18,7 +18,7 @@
 @section('content')
 <div class="card card-default">
   <div class="card-body">
-    <form action="/admin/potensi/store" method="post" enctype="multipart/form-data">
+    <form action="/admin/potensi" method="post" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
         <label for="judul">Judul Potensi:</label> 
