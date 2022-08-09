@@ -17,6 +17,8 @@ class ProdukController extends Controller
      */
     public function index()
     {
+
+        // dd(public_path());
         $produks = Produk::paginate(10);  
 
         if (request('search')) {

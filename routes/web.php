@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GambarController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PotensiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProgramController;
@@ -28,13 +28,11 @@ Route::middleware(['auth'])->group(function(){
   });
   
   // posts route
-  Route::get('/admin/posts', [PostsController::class,'index']);
-  Route::get('/admin/posts/create', [PostsController::class,'create']);
-  Route::post('/admin/posts/insert', [PostsController::class,'store']);
-  Route::get('/admin/posts/{id}', [PostsController::class,'show']);
-  Route::get('/admin/posts/{id}/edit', [PostsController::class,'edit']);
-  Route::put('/admin/posts/{id}/update', [PostsController::class,'update']);
-  Route::delete('/admin/posts/{id}/destroy',[PostsController::class, 'destroy']);
+  Route::get('/admin/berita',[BeritaController::class,'index']);
+  Route::get('/admin/berita/create',[BeritaController::class,'create']);
+  Route::post('/admin/berita/store',[BeritaController::class,'store']);
+  Route::get('/admin/berita/{berita}',[BeritaController::class,'show']);
+  Route::get('/admin/berita/{berita}/edit',[BeritaController::class,'edit']);
 
   // potensi route
   Route::resource('/admin/potensi', PotensiController::class);

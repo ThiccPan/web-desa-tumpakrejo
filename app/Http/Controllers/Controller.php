@@ -12,13 +12,15 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $configTxtOnly = [
-        "toolbar" => [
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
-            ['fontsize', ['fontsize']],
+        "toolbar"=> [
+            ['style'],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']]
+            ['table', ['table']],
+            ['insert', ['link']],
+            ['view', ['fullscreen', 'codeview', 'help']],
         ]
     ];
 }

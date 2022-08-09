@@ -248,8 +248,8 @@ return [
         ],
         ['header' => 'Berita'],
         [
-            'text'        => 'Posts',
-            'url'         => 'admin/posts',
+            'text'        => 'Berita',
+            'url'         => 'admin/berita',
             'icon'        => 'fas fa-fw fa-edit',
             'label'       => '',
             'label_color' => '',
@@ -277,14 +277,9 @@ return [
         ],
         ['header' => 'Foto'],
         [
-            'text' => 'Album',
+            'text' => 'Galeri',
             'url'  => 'admin/album',
             'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Gambar',
-            'url'  => 'admin/gambar',
-            'icon' => 'fas fa-fw fa-lock',
         ],
 
         ['header' => 'Data'],
