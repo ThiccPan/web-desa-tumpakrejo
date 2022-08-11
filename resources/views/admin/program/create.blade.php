@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 
+@section('plugins.Summernote', true)
 @section('title', 'Tambah Program Kerja')
 
 @section('content_header')
@@ -31,7 +32,7 @@
     
     <div class="mb-3">
       <label for="deskripsi" class="form-label">Deskripsi:</label>
-      <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="6"> {{ old('deskripsi') }}</textarea>
+      <x-adminlte-text-editor name="deskripsi" id="teBasic" :config="$config" enable-old-support/>
 
       @error('deskripsi')
       <div class="invalid-feedback">
@@ -41,14 +42,29 @@
     </div>
 
     <div class="mb-3">
-      <label for="gambar" class="form-label">Gambar</label>
-      <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
+      <label for="sampul" class="form-label">Gambar Sampul</label>
+      <input type="file" name="sampul" class="form-control p-1 @error('gambar') is-invalid @enderror">
 
       @error('deskripsi')
       <div class="invalid-feedback">
           {{ $message }}
       </div>
       @enderror
+    </div>
+    
+    <div class="mb-3">
+      <label for="gambars" class="form-label">Gambar</label>
+      <input type="file" name="gambars[]" id="gambars" class="form-control p-1  @error('gambar') is-invalid @enderror" multiple>
+
+      @error('deskripsi')
+      <div class="invalid-feedback">
+          {{ $message }}
+      </div>
+      @enderror
+    </div>
+
+    <div class="col-md-12">
+      <div class="images-preview-div"> </div>
     </div>
 
     <div class="mb-3">
@@ -82,12 +98,22 @@
 
 @section('footer')
 @include('partials.footer')
-@stop
+@stop 
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+<style>
+  .invalid-feedback {
+    display: block;
+  }
+  .images-preview-div img
+  {
+      padding: 10px;
+      max-width: 150px;
+  }
+</style>
 @stop
 
 @section('js')
-
+<script src="../../js/imgMultiPreview.js"></script>
+<script src="../../js/imgPreview.js"></script>
 @stop

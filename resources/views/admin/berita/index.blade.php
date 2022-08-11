@@ -21,10 +21,10 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Responsive Hover Table</h3>
+        <h3 class="card-title">Daftar Berita</h3>
         <div class="card-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
-            <a href="/admin/berita/create" class="btn btn-block btn-primary">Tambah berita</a>
+            <a href="/admin/berita/create" class="btn btn-block btn-success">Tambah berita</a>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <table class="table table-hover text-nowrap">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>No</th>
               <th>Judul</th>
               <th>Cover</th>
               <th>Penulis</th>
@@ -43,20 +43,21 @@
           <tbody>
             @foreach ($beritas as $berita)
             <tr>
-              <td>{{ $berita['id'] }}</td>
-              <td>{{ $berita['judul'] }}</td>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $berita->judul }}</td>
 
-              <td>{{ $berita['cover'] }}</td>
-
-              <td>{{ $berita['penulis'] }}</td>
               <td>
-                <a href="/admin/berita/{{ $berita->slug }}" class="btn btn-primary" icon="fas fa-md fa-trash">Lihat</a>
-                <a href="/admin/berita/{{ $berita->slug }}/edit" class="btn btn-warning ">Edit</a>
+                <img src="{{ asset('storage/' . $berita->sampul) }}" alt="{{ $berita->sampul }}" style="max-height: 100px; max-width: 100px;" class="img-responsive">
+              </td>
+
+              <td>{{ $berita->penulis }}</td>
+              <td>
                 <form action="/admin/berita/{{ $berita->slug }}/destroy" method="post">
                   @csrf
                   @method('delete')
-                  <button class="btn btn-danger mt-1" type="submit" name="submit" value="delete"
-                    label="delete">Hapus</button>
+                  <a href="/admin/berita/{{ $berita->slug }}" class="btn btn-primary">Lihat</a>
+                  <a href="/admin/berita/{{ $berita->slug }}/edit" class="btn btn-warning ">Edit</a>
+                  <input class="btn btn-danger" type="submit" name="submit" value="Hapus">
                 </form>
               </td>
             </tr>

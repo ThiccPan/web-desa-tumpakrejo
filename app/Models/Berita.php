@@ -27,4 +27,9 @@ class Berita extends Model
     {
         return 'slug';
     }
+
+    public function gambar()
+    {
+        return $this->morphMany(Gambar::class,'gambarable');
+    }
 }

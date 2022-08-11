@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gambar;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,7 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $programs = Program::paginate('10');
+        $programs = Program::with('gambar')->paginate('10');
 
         if (request('search')) {
             $programs = Program::where('judul', 'like', '%' . request('search') . '%')->paginate(10);
@@ -33,7 +34,9 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        return view('admin.program.create');
+        $config = $this->configTxtOnly;
+
+        return view('admin.program.create',compact('config'));
     }
 
     /**
@@ -62,23 +65,95 @@ class ProgramController extends Controller
 
         $validated = $validator->validated();
 
-        if ($request->file('gambar')) {
-            $reqGambar = $request->file('gambar');
-            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
-            $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = '';
+        $deskripsi = $request->deskripsi;
+        $dom = new \domdocument();
+        $dom->loadHtml($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $finaldesk = $dom->saveHtml();
+        $validated['deskripsi'] = $finaldesk;
 
-        Program::create([
+        if ($request->file('sampul')) {
+            $reqGambar = $request->file('sampul');
+            $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+        } else $validated['sampul'] = '';
+
+        $program = Program::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
-            'gambar' => $validated['gambar'],
+            'sampul' => $validated['sampul'],
             'tanggal' => $validated['tanggal'],
             'penulis' => $validated['penulis']
         ]);
 
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $program->gambar()->save($gambarTambah);
+            }
+
+        } 
+
         $request->session()->flash('msg',"Data program berhasil ditambahkan");
 
         return redirect('/admin/program');
+    }
+
+    public function storeImages(Request $request, Program $program)
+    {
+        // dd($program);
+        $validator = Validator::make($request->all(), [
+            'gambars' => 'required',
+            'keterangan' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                     ->back()
+                     ->withErrors($validator)
+                     ->withInput();
+        }
+
+        $validated = $validator->validated();
+
+        // dd($validated);
+
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $program->gambar()->save($gambarTambah);
+            }
+
+
+        } else ddd();
+
+
+        $request->session()->flash('msg',"Data album berhasil ditambahkan");
+
+        return redirect()->back();
     }
 
     /**
@@ -87,10 +162,10 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Program $program)
     {
-        $program = Program::where('slug',$slug)->first();
-        return view('admin.program.view',compact("program"));
+        $gambarProgram = $program->load('gambar');
+        return view('admin.program.view',compact("gambarProgram"));
     }
 
     /**
@@ -99,10 +174,11 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit(Program $program)
     {
-        $program = Program::where('slug',$slug)->first();
-        return view('admin.program.edit',compact("program"));
+        $config = $this->configTxtOnly;
+
+        return view('admin.program.edit',compact("program",'config'));
     }
 
     /**
@@ -112,15 +188,13 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, Program $program)
     {
-        $program = Program::where('slug',$slug)->first();
-
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
             'slug' => '',
-            'gambar' => 'nullable',
+            'sampul' => 'nullable',
             'tanggal' => 'required',
             'penulis' => 'required'
         ]);
@@ -134,18 +208,18 @@ class ProgramController extends Controller
 
         $validated = $validator->validated();
 
-        if ($request->file('gambar')) {
-            if (Storage::exists('post-images/' . $program->gambar)) {
-                Storage::delete('post-images/' . $program->gambar);
+        if ($request->file('sampul')) {
+            if (Storage::exists('post-images/' . $program->sampul)) {
+                Storage::delete('post-images/' . $program->sampul);
             }
-            $reqGambar = $request->file('gambar');
-            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
-            $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = $program->gambar;
+            $reqGambar = $request->file('sampul');
+            $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+        } else $validated['sampul'] = $program->sampul;
 
         $program->judul = $validated['judul'];
         $program->deskripsi = $validated['deskripsi'];
-        $program->gambar = $validated['gambar'];
+        $program->sampul = $validated['sampul'];
         $program->tanggal = $validated['tanggal'];
         $program->penulis = $validated['penulis'];
         $program->save();
@@ -161,12 +235,19 @@ class ProgramController extends Controller
      * @param  int  $slug
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(Program $program)
     {
-        $program = Program::where('slug',$slug)->first();
-
-        if (Storage::exists('post-images/' . $program->gambar)) {
-            Storage::delete('post-images/' . $program->gambar);
+        foreach ($program->gambar as $gambar) {
+            // dd($gambar->gambar);
+            if (Storage::exists('post-images/' . $gambar->gambar)) {
+                Storage::delete('post-images/' . $gambar->gambar);
+            } else {
+                // dd('file not found aaaaa');
+            } 
+        }
+        $program->gambar()->delete();
+        if (Storage::exists('post-images/' . $program->sampul)) {
+            Storage::delete('post-images/' . $program->sampul);
         }
 
         $program->delete();

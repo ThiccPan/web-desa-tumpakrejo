@@ -24,14 +24,14 @@
       @method('put')
 
       <div>
-        <label>Gambar</label>
-        <input class="box__file" type="file" name="gambar" id="file" data-multiple-caption="{count} files selected"
-          multiple />
+        <label>Gambar</label><br>
+        <input class="form-control" type="file" name="gambar" id="gambar" data-multiple-caption="{count} files selected"/>
       </div>
 
       <div>
         <label for="">Gambar baru</label><br>
-        <img src="{{ asset('storage/' . $gambar->gambar) }}" alt="" class="img-responsive" style="max-height: 200px; max-width:200px;">
+        {{-- <img src="#" alt="tambahkan gambar" class="img-responsive" style="max-height: 200px; max-width:200px;" id="gambar"> --}}
+        <img src="#" id="preview-tag" width="200px" /> 
       </div>
 
       <div>
@@ -64,5 +64,5 @@
 @stop
 
 @section('js')
-<script src="../../js/imgPreview.js"></script>
+<script src="{{ asset('js/imgPreview.js') }}"></script>
 @stop

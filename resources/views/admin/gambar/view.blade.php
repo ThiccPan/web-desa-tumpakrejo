@@ -38,7 +38,7 @@
               <td>{{ $gambar->gambar }}</td>
               <td><img src="{{ asset('storage/' . $gambar->gambar) }}" alt="{{ asset($gambar->gambar) }}" style="max-width:200px;max-height:200px;" class="img-responsive"></td>
               <td>
-                <form action="/admin/album/destroy/{{ $gambar->gambar }}" method="post">
+                <form action="/admin/destroy/{{ $gambar->gambar }}" method="post">
                   @csrf
                   @method('delete')
 

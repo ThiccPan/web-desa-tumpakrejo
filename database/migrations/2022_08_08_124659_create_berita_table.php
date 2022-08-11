@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('judul');
             $table->string('slug');
             $table->string('deskripsi');
-            $table->string('gambar')->nullable();
+            $table->string('sampul')->nullable();
             $table->timestamps();
             $table->string('penulis');
         });

@@ -27,7 +27,7 @@
             <h3 class="card-title">Data Program Kerja</h3>
             <div class="card-tools">
               <div class="input-group input-group-sm" style="width: 150px;">
-                <a href="/admin/program/create" class="btn btn-block btn-primary">Tambah Program</a>
+                <a href="/admin/program/create" class="btn btn-block btn-success">Tambah Program</a>
               </div>
             </div>
           </div>
@@ -54,15 +54,16 @@
                       @csrf
                       @method('delete')
             
-                      <a href="/admin/program/{{ $program->slug }}" class="btn btn-success">
+                      <a href="/admin/program/{{ $program->slug }}" class="btn btn-primary">
                         Detail
                       </a>
             
                       <a class="btn btn-warning" href="/admin/program/{{ $program->slug }}/edit">
                         Ubah
                       </a>
-            
-                      <input class="btn btn-danger" type="submit" name="submit" value="Hapus">
+                      
+                      <button type="submit" class="btn btn-danger">Hapus</button>
+
                     </form>
                   </td>
                 </tr>

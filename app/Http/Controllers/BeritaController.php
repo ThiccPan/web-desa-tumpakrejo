@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\Gambar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -34,8 +35,6 @@ class BeritaController extends Controller
     public function create()
     {
         $config = $this->configTxtOnly;
-        array_push($config['toolbar'][6][1],'picture');
-        // dd($config['toolbar'][6][1]);
         return view('admin.berita.create',compact('config'));
     }
 
@@ -53,7 +52,7 @@ class BeritaController extends Controller
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
             'slug' => '',
-            'gambar' => 'nullable', 
+            'sampul' => 'nullable', 
             'penulis' => 'required'
         ]);
 
@@ -65,59 +64,91 @@ class BeritaController extends Controller
         }
 
         $validated = $validator->validated();
-        
-        $deskripsi = $request->deskripsi;
-        // dd($deskripsi);
 
-        $dom = new \domdocument();
-        $dom->loadHtml($deskripsi, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        if ($request->file('sampul')) {
+            $reqGambar = $request->file('sampul');
+            $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+        } else $validated['sampul'] = '';
 
-        // dd($dom);
-        
-        $deskripsiGambar = $dom->getElementsByTagName('img');
-        // dd($deskripsiGambar);
-
-        foreach($deskripsiGambar as $dGambar =>$img)
-        {
-            $data = $img->getattribute('src');
-            // dd($data);
-            
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-        
-            $data = base64_decode($data);
-            // dd($data);
-            $image_name= time(). '_' . $dGambar.'.png';
-
-            // dd($image_name);
-            
-            Storage::disk('local')->put('post-images/' . $image_name,$data);
-
-            $img->removeattribute('src');
-            $img->setattribute('src', asset('storage/' . $image_name));
-
-        }
-
-        $finaldesk = $dom->saveHtml();
-        $validated['deskripsi'] = $finaldesk;
-
-        if ($request->file('gambar')) {
-            $reqGambar = $request->file('gambar');
-            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
-            $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = '';
-
-        Berita::create([
+        $berita = Berita::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
-            'gambar' => $validated['gambar'],
+            'sampul' => $validated['sampul'],
             'penulis' => $validated['penulis']
         ]);
+
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $berita->gambar()->save($gambarTambah);
+            }
+
+        } 
 
         $request->session()->flash('msg',"Data produk berhasil ditambahkan");
 
         return redirect('/admin/berita');        
     }
+
+    public function storeImages(Request $request, Berita $berita)
+    {
+        // dd($program);
+        $validator = Validator::make($request->all(), [
+            'gambars' => 'required',
+            'keterangan' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                     ->back()
+                     ->withErrors($validator)
+                     ->withInput();
+        }
+
+        $validated = $validator->validated();
+
+        // dd($validated);
+
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $berita->gambar()->save($gambarTambah);
+            }
+
+
+        } else ddd();
+
+
+        $request->session()->flash('msg',"Data album berhasil ditambahkan");
+
+        return redirect()->back();
+    }
+
 
     /**
      * Display the specified resource.
@@ -139,7 +170,6 @@ class BeritaController extends Controller
     public function edit(Berita $berita)
     {
         $config = $this->configTxtOnly;
-        array_push($config['toolbar'][6][1],'picture');
         return view('admin.berita.edit',compact('berita','config'));
     }
 
@@ -152,7 +182,46 @@ class BeritaController extends Controller
      */
     public function update(Request $request, Berita $berita)
     {
+        // dd($request);
+
+        $validator = Validator::make($request->all(), [
+            'judul' => 'required|max:255',
+            'deskripsi' => 'required',
+            'slug' => '',
+            'sampul' => 'nullable', 
+            'penulis' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                     ->back()
+                     ->withErrors($validator)
+                     ->withInput();
+        }
+
+        $validated = $validator->validated();
         
+        // dd($deskripsi);
+
+        if ($request->file('sampul')) {
+            if (Storage::exists('post-images/' . $berita->sampul)) {
+                Storage::delete('post-images/' . $berita->sampul);
+            }
+            $reqGambar = $request->file('sampul');
+            $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+            $berita->sampul = $validated['sampul'];
+        }
+        
+        $berita->judul = $validated['judul'];
+        $berita->deskripsi = $validated['deskripsi'];
+        $berita->penulis = $validated['penulis'];
+        $berita->save();
+        
+
+        $request->session()->flash('msg',"Data berita berhasil ditambahkan");
+
+        return redirect('/admin/berita');          
     }
 
     /**
@@ -161,8 +230,23 @@ class BeritaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Berita $berita)
     {
-        //
+        foreach ($berita->gambar as $gambar) {
+            if (Storage::exists('post-images/' . $gambar->gambar)) {
+                Storage::delete('post-images/' . $gambar->gambar);
+            } 
+            // else {
+            //     dd('file not found aaaaa');
+            // }
+        }
+        $berita->gambar()->delete();
+        if (Storage::exists('post-images/' . $berita->sampul)) {
+            Storage::delete('post-images/' . $berita->sampul);
+        } else {
+            dd('file not found');
+        }
+        $berita->delete();
+        return redirect('/admin/berita');
     }
 }

@@ -23,6 +23,11 @@ class Potensi extends Model
         ];
     }
 
+    public function gambar()
+    {
+        return $this->morphMany(Gambar::class,'gambarable');
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

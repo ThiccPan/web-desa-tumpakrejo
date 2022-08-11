@@ -80,7 +80,7 @@ class GambarController extends Controller
 
         $request->session()->flash('msg',"Data album berhasil ditambahkan");
 
-        return redirect('/admin/album');
+        return redirect()->back();
     }
 
     /**
@@ -164,6 +164,6 @@ class GambarController extends Controller
         }
 
         $gambar->delete();
-        return redirect('admin/album/');
+        return redirect()->back();
     }
 }

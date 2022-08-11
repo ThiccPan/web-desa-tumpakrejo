@@ -47,10 +47,21 @@
       <strong>Tanggal</strong>
       <p class="text-muted">{{ $produk->updated_at }}</p>
       <hr>
+      <strong>Sampul</strong>
+      <br>
+      <img src="{{ asset('storage/' . $produk->sampul) }}" alt="{{ $produk->sampul }}"
+      style="max-height: 300px; max-width: 300px;" class="img-responsive">
+      <hr>
       <strong>Gambar</strong>
       <br>
-      <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->gambar }}"
-      style="max-height: 300px; max-width: 300px;" class="img-responsive">
+      @foreach ($produk->gambar as $gambar)          
+        <img src="{{ asset('storage/' . $gambar->gambar) }}" alt="{{ $gambar->gambar }}"
+          style="max-height: 300px; 
+          max-width: 300px;" 
+          class="img-responsive"
+        >
+        <p></p>
+      @endforeach
     </div>
   </div>
 </section>

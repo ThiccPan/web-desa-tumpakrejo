@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('judul');
             $table->string('slug')->unique();
             $table->longText('deskripsi');
-            $table->string('gambar')->nullable();
             $table->date('tanggal');
+            $table->string('sampul')->nullable();
             $table->timestamps();
             $table->string('penulis');
         });

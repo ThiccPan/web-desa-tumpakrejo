@@ -43,15 +43,26 @@
       <hr>
       <strong>Deskripsi</strong>
       <p class="text-muted">
-        {{ $potensi->deskripsi }}
+        {!! $potensi->deskripsi !!}
       </p>
       <hr>
       <strong>Tanggal</strong>
       <p class="text-muted">{{ $potensi->updated_at }}</p>
       <hr>
+      <strong>Sampul</strong>
+      <br>
+      <img src="{{ asset('storage/' . $potensi->sampul) }}" alt="{{ $potensi->sampul }}" style="max-height: 300px; max-width: 300px;" class="img-responsive">
+      <hr>
       <strong>Gambar</strong>
       <br>
-      <img src="{{ asset('storage/' . $potensi->gambar) }}" alt="{{ $potensi->gambar }}" style="max-height: 300px; max-width: 300px;" class="img-responsive">
+      @foreach ($potensi->gambar as $gambar)          
+        <img src="{{ asset('storage/' . $gambar->gambar) }}" alt="{{ $gambar->gambar }}"
+          style="max-height: 300px; 
+          max-width: 300px;" 
+          class="img-responsive"
+        >
+        <p></p>
+      @endforeach
     </div>
   </div>
 </section>

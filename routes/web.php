@@ -33,27 +33,39 @@ Route::middleware(['auth'])->group(function(){
   Route::post('/admin/berita/store',[BeritaController::class,'store']);
   Route::get('/admin/berita/{berita}',[BeritaController::class,'show']);
   Route::get('/admin/berita/{berita}/edit',[BeritaController::class,'edit']);
+  Route::put('/admin/berita/{berita}/update',[BeritaController::class,'update']);
+  Route::delete('/admin/berita/{berita}/destroy',[BeritaController::class,'destroy']);
+  Route::post('/admin/berita/{berita}/gambar/tambah',[BeritaController::class,'storeImages']);
 
   // potensi route
-  Route::resource('/admin/potensi', PotensiController::class);
+  Route::get('/admin/potensi', [PotensiController::class,'index']);
+  Route::get('/admin/potensi/create', [PotensiController::class,'create']);
+  Route::post('/admin/potensi/store', [PotensiController::class,'store']);
+  Route::get('/admin/potensi/{potensi}', [PotensiController::class,'show']);
+  Route::get('/admin/potensi/{potensi}/edit', [PotensiController::class,'edit']);
+  Route::put('/admin/potensi/{potensi}/update', [PotensiController::class,'update']);
+  Route::delete('/admin/potensi/{potensi}/destroy', [PotensiController::class,'destroy']);
+  Route::post('/admin/potensi/{potensi}/gambar/tambah', [PotensiController::class,'storeImages']);
 
   // produk route
   Route::get('/admin/produk', [ProdukController::class,'index']);
   Route::get('/admin/produk/create', [ProdukController::class,'create']);
   Route::post('/admin/produk/store', [ProdukController::class,'store']);
-  Route::get('/admin/produk/{slug}', [ProdukController::class,'show']);
-  Route::get('/admin/produk/{slug}/edit', [ProdukController::class,'edit']);
-  Route::put('/admin/produk/{slug}/update', [ProdukController::class,'update']);
-  Route::delete('/admin/produk/{slug}/destroy', [ProdukController::class,'destroy']);
+  Route::get('/admin/produk/{produk}', [ProdukController::class,'show']);
+  Route::get('/admin/produk/{produk}/edit', [ProdukController::class,'edit']);
+  Route::put('/admin/produk/{produk}/update', [ProdukController::class,'update']);
+  Route::delete('/admin/produk/{produk}/destroy', [ProdukController::class,'destroy']);
+  Route::post('/admin/produk/{produk}/gambar/tambah', [ProdukController::class,'storeImages']);
 
   // program route
   Route::get('/admin/program', [ProgramController::class,'index']);
   Route::get('/admin/program/create', [ProgramController::class,'create']);
   Route::post('/admin/program/store', [ProgramController::class,'store']);
-  Route::get('/admin/program/{slug}', [ProgramController::class,'show']);
-  Route::get('/admin/program/{slug}/edit', [ProgramController::class,'edit']);
-  Route::put('/admin/program/{slug}/update', [ProgramController::class,'update']);
-  Route::delete('/admin/program/{slug}/destroy', [ProgramController::class,'destroy']);
+  Route::get('/admin/program/{program}', [ProgramController::class,'show']);
+  Route::get('/admin/program/{program}/edit', [ProgramController::class,'edit']);
+  Route::put('/admin/program/{program}/update', [ProgramController::class,'update']);
+  Route::delete('/admin/program/{program}/destroy', [ProgramController::class,'destroy']);
+  Route::post('/admin/program/{program}/gambar/tambah', [ProgramController::class,'storeImages']);
   
   // pengurus route
   Route::get('/admin/pengurus', [PengurusController::class,'index']);
@@ -69,14 +81,14 @@ Route::middleware(['auth'])->group(function(){
   Route::get('/admin/album/create', [AlbumController::class,'create']);
   Route::post('/admin/album/store', [AlbumController::class,'store']);
   Route::get('/admin/album/{album}/edit', [AlbumController::class,'edit']);
-  Route::put('/admin/album/{id}/update', [AlbumController::class,'update']);
-  Route::delete('/admin/album/{id}/destroy', [AlbumController::class,'destroy']);
+  Route::put('/admin/album/{album}/update', [AlbumController::class,'update']);
+  Route::delete('/admin/album/{album}/destroy', [AlbumController::class,'destroy']);
 
   Route::post('/admin/album/{album}/store', [GambarController::class,'store']);
   Route::get('/admin/album/{album}', [GambarController::class,'show']);
   Route::get('/admin/album/{album}/create', [GambarController::class,'create']);
   Route::get('/admin/album/{album}/{gambar}', [GambarController::class,'edit']);
-  Route::delete('/admin/album/destroy/{gambar}', [GambarController::class,'destroy']);
+  Route::delete('/admin/destroy/{gambar}', [GambarController::class,'destroy']);
   Route::put('/admin/album/update/{gambar}', [GambarController::class,'update']);
   
   // Gambar route

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gambar;
 use App\Models\Potensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +34,8 @@ class PotensiController extends Controller
      */
     public function create()
     {
-        return view('admin.potensi.create');
+        $config = $this->configTxtOnly;
+        return view('admin.potensi.create',compact('config'));
     }
 
     /**
@@ -48,7 +50,7 @@ class PotensiController extends Controller
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
             'slug' => '',
-            'gambar' => 'nullable',
+            'sampul' => 'nullable',
             'penulis' => 'required'
         ]);
 
@@ -61,22 +63,88 @@ class PotensiController extends Controller
 
         $validated = $validator->validated();
 
-        if ($request->file('gambar')) {
-            $reqGambar = $request->file('gambar');
-            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
-            $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = '';
+        if ($request->file('sampul')) {
+            $reqsampul = $request->file('sampul');
+            $validated['sampul'] = $reqsampul->storePubliclyAs('post-images',time().'_'.$reqsampul->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+        } else $validated['sampul'] = '';
 
-        Potensi::create([
+        $potensi = Potensi::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
-            'gambar' => $validated['gambar'],
+            'sampul' => $validated['sampul'],
             'penulis' => $validated['penulis']
         ]);
+
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $potensi->gambar()->save($gambarTambah);
+            }
+
+        } 
 
         $request->session()->flash('msg',"Data potensi berhasil ditambahkan");
 
         return redirect('/admin/potensi');
+    }
+
+    public function storeImages(Request $request, Potensi $potensi)
+    {
+        // dd($program);
+        $validator = Validator::make($request->all(), [
+            'gambars' => 'required',
+            'keterangan' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                     ->back()
+                     ->withErrors($validator)
+                     ->withInput();
+        }
+
+        $validated = $validator->validated();
+
+        // dd($validated);
+
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $potensi->gambar()->save($gambarTambah);
+            }
+
+
+        } else ddd();
+
+
+        $request->session()->flash('msg',"Data album berhasil ditambahkan");
+
+        return redirect()->back();
     }
 
     /**
@@ -99,7 +167,9 @@ class PotensiController extends Controller
      */
     public function edit(Potensi $potensi)
     {
-        return view('admin.potensi.edit', compact('potensi'));
+        $config = $this->configTxtOnly;
+        // dd($potensi->gambar);
+        return view('admin.potensi.edit', compact('potensi','config'));
     }
 
     /**
@@ -115,7 +185,7 @@ class PotensiController extends Controller
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
             'slug' => '',
-            'gambar' => 'nullable',
+            'sampul' => 'nullable',
             'penulis' => 'required'
         ]);
 
@@ -128,18 +198,18 @@ class PotensiController extends Controller
 
         $validated = $validator->validated();
 
-        if ($request->file('gambar')) {
-            if (Storage::exists('post-images/' . $potensi->gambar)) {
-                Storage::delete('post-images/' . $potensi->gambar);
+        if ($request->file('sampul')) {
+            if (Storage::exists('post-images/' . $potensi->sampul)) {
+                Storage::delete('post-images/' . $potensi->sampul);
             }
-            $reqGambar = $request->file('gambar');
-            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
-            $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = $potensi->gambar;
+            $reqsampul = $request->file('sampul');
+            $validated['sampul'] = $reqsampul->storePubliclyAs('post-images',time().'_'.$reqsampul->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+        } else $validated['sampul'] = $potensi->sampul;
 
         $potensi->judul = $validated['judul'];
         $potensi->deskripsi = $validated['deskripsi'];
-        $potensi->gambar = $validated['gambar'];
+        $potensi->sampul = $validated['sampul'];
         $potensi->penulis = $validated['penulis'];
         $potensi->save();
 
@@ -156,8 +226,18 @@ class PotensiController extends Controller
      */
     public function destroy(Potensi $potensi)
     {    
-        if (Storage::exists('post-images/' . $potensi->gambar)) {
-            Storage::delete('post-images/' . $potensi->gambar);
+        foreach ($potensi->gambar as $gambar) {
+            dd($gambar->gambar);
+            if (Storage::exists('post-images/' . $gambar->gambar)) {
+                Storage::delete('post-images/' . $gambar->gambar);
+            } 
+            // else {
+            //     dd('file not found aaaaa');
+            // }
+        }
+        $potensi->gambar()->delete();
+        if (Storage::exists('post-images/' . $potensi->sampul)) {
+            Storage::delete('post-images/' . $potensi->sampul);
         } else {
             dd('file not found');
         }

@@ -14,12 +14,12 @@
           <div class="small-box bg-info">
             <div class="inner">
               <h3>150</h3>
-              <p>Artikel</p>
+              <p>Berita</p>
             </div>
             <div class="icon">
               <i class="fas fa-edit"></i>
             </div>
-            <a href="/admin/artikel" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/admin/berita" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -31,7 +31,7 @@
             <div class="icon">
               <i class="far fa-handshake"></i>
             </div>
-            <a href="/program" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/admin/program" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -69,19 +69,19 @@
             <div class="icon">
               <i class="far fa-image"></i>
             </div>
-            <a href="/album" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/admin/album" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-lg-6 col-6">
           <div class="small-box bg-warning">
             <div class="inner">
               <h3>44</h3>
-              <p>Galeri</p>
+              <p>Pengurus</p>
             </div>
             <div class="icon">
-              <i class="far fa fa-camera-retro"></i>
+              <i class="far fa fa-users"></i>
             </div>
-            <a href="/galeri" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/admin/pengurus" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>

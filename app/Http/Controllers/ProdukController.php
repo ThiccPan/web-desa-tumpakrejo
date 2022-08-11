@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gambar;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -54,7 +55,7 @@ class ProdukController extends Controller
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
             'slug' => '',
-            'gambar' => 'nullable',
+            'sampul' => 'nullable',
             'tanggal' => 'required',
             'penulis' => 'required'
         ]);
@@ -74,23 +75,89 @@ class ProdukController extends Controller
         $finaldesk = $dom->saveHtml();
         $validated['deskripsi'] = $finaldesk;
 
-        if ($request->file('gambar')) {
-            $reqGambar = $request->file('gambar');
-            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
-            $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = '';
+        if ($request->file('sampul')) {
+            $reqGambar = $request->file('sampul');
+            $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+        } else $validated['sampul'] = '';
 
-        Produk::create([
+        $produk = Produk::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
-            'gambar' => $validated['gambar'],
+            'sampul' => $validated['sampul'],
             'tanggal' => $validated['tanggal'],
             'penulis' => $validated['penulis']
         ]);
 
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $produk->gambar()->save($gambarTambah);
+            }
+
+        } 
+
         $request->session()->flash('msg',"Data produk berhasil ditambahkan");
 
         return redirect('/admin/produk');
+    }
+
+    public function storeImages(Request $request, Produk $produk)
+    {
+        // dd($request);
+        $validator = Validator::make($request->all(), [
+            'gambars' => 'required',
+            'keterangan' => 'nullable'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                     ->back()
+                     ->withErrors($validator)
+                     ->withInput();
+        }
+
+        $validated = $validator->validated();
+
+        // dd($validated);
+
+        if ($request->file('gambars')) {
+            $reqGambar = $request->file('gambars');
+            // ddd($reqGambar);
+
+            foreach ($reqGambar as $gambar) {
+                $validated['gambar'] = $gambar->storePubliclyAs('post-images',time().'_'.$gambar->getClientOriginalName());
+                $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
+                $validated['keterangan'] = null;
+
+                // ddd($validated);
+                
+                $gambarTambah = new Gambar();
+                $gambarTambah->gambar = $validated['gambar'];
+                $gambarTambah->keterangan = $validated['keterangan'];
+
+                $produk->gambar()->save($gambarTambah);
+            }
+
+
+        } else ddd();
+
+
+        $request->session()->flash('msg',"Data album berhasil ditambahkan");
+
+        return redirect()->back();
     }
 
     /**
@@ -133,7 +200,7 @@ class ProdukController extends Controller
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
             'slug' => '',
-            'gambar' => 'nullable',
+            'sampul' => 'nullable',
             'tanggal' => 'required',
             'penulis' => 'required'
         ]);
@@ -153,18 +220,18 @@ class ProdukController extends Controller
         $finaldesk = $dom->saveHtml();
         $validated['deskripsi'] = $finaldesk;
 
-        if ($request->file('gambar')) {
-            if (Storage::exists('post-images/' . $produk->gambar)) {
-                Storage::delete('post-images/' . $produk->gambar);
+        if ($request->file('sampul')) {
+            if (Storage::exists('post-images/' . $produk->sampul)) {
+                Storage::delete('post-images/' . $produk->sampul);
             }
-            $reqGambar = $request->file('gambar');
-            $validated['gambar'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
-            $validated['gambar'] = Str::of($validated['gambar'])->after('post-images/');
-        } else $validated['gambar'] = $produk->gambar;
+            $reqGambar = $request->file('sampul');
+            $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
+            $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
+        } else $validated['sampul'] = $produk->sampul;
 
         $produk->judul = $validated['judul'];
         $produk->deskripsi = $validated['deskripsi'];
-        $produk->gambar = $validated['gambar'];
+        $produk->sampul = $validated['sampul'];
         $produk->tanggal = $validated['tanggal'];
         $produk->penulis = $validated['penulis'];
         $produk->save();
@@ -180,12 +247,19 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(Produk $produk)
     {
-        $produk = Produk::where('slug',$slug)->first(); 
-        
-        if (Storage::exists('post-images/' . $produk->gambar)) {
-            Storage::delete('post-images/' . $produk->gambar);
+        foreach ($produk->gambar as $gambar) {
+            // dd($gambar->gambar);
+            if (Storage::exists('post-images/' . $gambar->gambar)) {
+                Storage::delete('post-images/' . $gambar->gambar);
+            } else {
+                // dd('file not found aaaaa');
+            } 
+        }
+        $produk->gambar()->delete();
+        if (Storage::exists('post-images/' . $produk->sampul)) {
+            Storage::delete('post-images/' . $produk->sampul);
         }
         $produk->delete();
         return redirect('/admin/produk');

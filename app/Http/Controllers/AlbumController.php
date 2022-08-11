@@ -72,6 +72,7 @@ class AlbumController extends Controller
         return redirect('/admin/album');
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -101,10 +102,9 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Album $album)
     {
         // dd($request);
-        $album = Album::find($id);
 
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
@@ -147,13 +147,19 @@ class AlbumController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Album $album)
     {
-        $album = Album::find($id);        
+        foreach ($album->gambar as $gambar) {
+            // dd($gambar->gambar);
+            if (Storage::exists('post-images/' . $gambar->gambar)) {
+                Storage::delete('post-images/' . $gambar->gambar);
+            } else {
+                // dd('file not found aaaaa');
+            } 
+        }
+        $album->gambar()->delete();
         if (Storage::exists('post-images/' . $album->sampul)) {
             Storage::delete('post-images/' . $album->sampul);
-        } else {
-            dd('file not found');
         }
         $album->delete();
         return redirect('/admin/album');

@@ -24,7 +24,7 @@
         <h3 class="card-title">Data Potensi</h3>
         <div class="card-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
-            <a href="/admin/potensi/create" class="btn btn-block btn-primary">Tambah potensi</a>
+            <a href="/admin/potensi/create" class="btn btn-block btn-success">Tambah potensi</a>
           </div>
         </div>
       </div>
@@ -47,11 +47,11 @@
               <td>{{ $potensi['updated_at'] }}</td>
               <td>{{ $potensi['penulis'] }}</td>
               <td>
-                <form action="/admin/potensi/{{ $potensi->slug }}" method="post">
+                <form action="/admin/potensi/{{ $potensi->slug }}/destroy" method="post">
                   @csrf
                   @method('delete')
         
-                  <a href="/admin/potensi/{{ $potensi->slug }}" class="btn btn-success">
+                  <a href="/admin/potensi/{{ $potensi->slug }}" class="btn btn-primary">
                     Detail
                   </a>
         

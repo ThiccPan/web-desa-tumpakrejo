@@ -43,8 +43,8 @@
 
 
     <div class="mb-3">
-      <label for="gambar" class="form-label">Gambar</label>
-      <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
+      <label for="sampul" class="form-label">Sampul</label>
+      <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror">
 
       @error('deskripsi')
       <div class="invalid-feedback">
@@ -52,6 +52,22 @@
       </div>
       @enderror
     </div>
+
+    <div class="mb-3">
+      <label for="gambars" class="form-label">Gambar</label>
+      <input type="file" name="gambars[]" id="gambars" class="form-control p-1  @error('gambar') is-invalid @enderror" multiple>
+
+      @error('deskripsi')
+      <div class="invalid-feedback">
+          {{ $message }}
+      </div>
+      @enderror
+    </div>
+
+    <div class="col-md-12">
+      <div class="images-preview-div"> </div>
+    </div>
+
 
     <div class="mb-3">
       <label for="tanggal">tanggal:</label>
@@ -85,9 +101,19 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+<style>
+  .invalid-feedback {
+    display: block;
+  }
+  .images-preview-div img
+  {
+      padding: 10px;
+      max-width: 150px;
+  }
+</style>
 @stop
 
 @section('js')
-
+<script src="../../js/imgMultiPreview.js"></script>
+<script src="../../js/imgPreview.js"></script>
 @stop

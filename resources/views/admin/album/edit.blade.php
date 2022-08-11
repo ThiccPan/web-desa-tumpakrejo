@@ -21,7 +21,7 @@
     <h3 class="card-title">Data album</h3>
   </div>
   <div class="card-body">
-    <form action="/admin/album/{{ $album->id }}/update" method="post" enctype="multipart/form-data">
+    <form action="/admin/album/{{ $album->slug }}/update" method="post" enctype="multipart/form-data">
       @method('put')
       @csrf
       <div class="row">

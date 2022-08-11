@@ -18,8 +18,19 @@ class Program extends Model
     {
         return [
             'slug' => [
-                'source' => 'judul'
+                'source' => 'judul',
+                'onUpdate' => true
             ]
         ];
+    }
+
+    public function gambar()
+    {
+        return $this->morphMany(Gambar::class,'gambarable');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
