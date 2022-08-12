@@ -98,9 +98,9 @@ class BeritaController extends Controller
 
         } 
 
-        $request->session()->flash('msg',"Data produk berhasil ditambahkan");
+        $request->session()->flash('msg',"Data Berita berhasil ditambahkan");
 
-        return redirect('/admin/berita');        
+        return redirect('/admin/program/');        
     }
 
     public function storeImages(Request $request, Berita $berita)
@@ -211,14 +211,14 @@ class BeritaController extends Controller
             $validated['sampul'] = $reqGambar->storePubliclyAs('post-images',time().'_'.$reqGambar->getClientOriginalName());
             $validated['sampul'] = Str::of($validated['sampul'])->after('post-images/');
             $berita->sampul = $validated['sampul'];
-        }
+        }else $validated['sampul'] = $berita->sampul;
         
         $berita->judul = $validated['judul'];
         $berita->deskripsi = $validated['deskripsi'];
+        $berita->sampul = $validated['sampul'];
         $berita->penulis = $validated['penulis'];
         $berita->save();
         
-
         $request->session()->flash('msg',"Data berita berhasil ditambahkan");
 
         return redirect('/admin/berita');          

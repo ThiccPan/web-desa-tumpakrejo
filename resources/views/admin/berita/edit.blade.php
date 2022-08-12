@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('plugins.Summernote', true)
-@section('title', 'Edit Program')
+@section('title', 'Edit Berita')
 
 @section('content_header')
 @if ($errors->any())
@@ -13,16 +13,18 @@
   </ul>
 </div>
 @endif
-<h1>Tambahkan Program Baru</h1>
+<h1>Ubah Berita</h1>
 @stop
 
 @section('content')
 <div class="card card-default">
   <div class="card-body">
+
     <form action="/admin/berita/{{ $berita->slug }}/update" method="post" enctype="multipart/form-data">
-      @csrf
       @method('put')
-      <div class="mb-3">
+      @csrf
+
+      <div class="form-group">
         <label for="judul">Judul Berita:</label>
         <input type="text" name="judul" id="" class="@error('judul') is-invalid @enderror form-control" maxlength="255"
           value="{{ $berita->judul }}">
@@ -34,7 +36,7 @@
         @enderror
       </div>
 
-      <div class="mb-3">
+      <div class="form-group">
         <label for="deskripsi" class="form-label">Deskripsi:</label>
         <x-adminlte-text-editor name="deskripsi" id="teBasic" enable-old-support :config="$config">
           {!! $berita->deskripsi !!}
@@ -48,18 +50,24 @@
       </div>
 
 
-      <div class="mb-3">
-        <label for="gambar" class="form-label">Gambar</label>
-        <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
+      <div class="form-group">
+        <label for="sampul" class="form-label">sampul</label>
+        <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror">
 
-        @error('deskripsi')
+        @error('sampul')
         <div class="invalid-feedback">
           {{ $message }}
         </div>
         @enderror
       </div>
 
-      <div class="mb-1">
+      <div class="form-group">
+        <p><strong>Sampul Lama:</strong></p>
+        <img src="{{ asset('storage/' . $berita->sampul) }}" alt="Sampul lama tidak ditemukan"
+          style="max-height: 200px; max-width: 200px;" class="img-responsive">
+      </div>
+
+      <div class="form-group">
         <label for="penulis">Penulis: </label>
         <input type="text" name="penulis" id="penulis" class="form-control @error('penulis') is-invalid @enderror"
           value="{{ $berita->penulis }}">
@@ -72,7 +80,8 @@
       </div>
 
       <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-      <a href="/admin/produk" class="btn btn-secondary">Kembali</a>
+
+      <a href="/admin/berita" class="btn btn-secondary">Kembali</a>
     </form>
   </div>
 </div>
@@ -149,5 +158,4 @@
 @stop
 
 @section('js')
-
 @stop

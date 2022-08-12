@@ -54,7 +54,7 @@
         <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror"
           value="{{ $potensi->sampul }}">
 
-        @error('deskripsi')
+        @error('sampul')
         <div class="invalid-feedback">
           {{ $message }}
         </div>
@@ -80,8 +80,8 @@
       </div>
 
       <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-      <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
 
+      <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
     </form>
   </div>
 </div>
