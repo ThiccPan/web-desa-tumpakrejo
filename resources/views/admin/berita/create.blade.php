@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('plugins.Summernote', true)
-@section('title', 'Tambah Program')
+@section('title', 'Tambah Berita')
 
 @section('content_header')
   @if ($errors->any())
@@ -13,7 +13,7 @@
       </ul>
   </div>
   @endif
-  <h1>Tambahkan Program Baru</h1>
+  <h1>Tambahkan Berita Baru</h1>
 @stop
 
 @section('content')
@@ -44,8 +44,8 @@
 
     <div class="mb-3">
       <label for="sampul" class="form-label">Sampul</label>
-      <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror">
-
+      <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror" id="gambar1">
+      <img src="#" id="preview-tag" style="max-height: 200px; max-width:200px" /> 
       @error('deskripsi')
       <div class="invalid-feedback">
           {{ $message }}
@@ -102,6 +102,7 @@
 @stop
 
 @section('js')
-  <script src="../../js/imgMultiPreview.js"></script>
-  <script src="../../js/imgPreview.js"></script>
+  {{-- <script src="../../js/imgMultiPreview.js"></script> --}}
+  <script src="{{ asset('/js/imgMultiPreview.js') }}"></script>
+  <script src="{{ asset('/js/imgPreview.js') }}"></script>
 @stop

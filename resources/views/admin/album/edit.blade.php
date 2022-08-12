@@ -40,7 +40,7 @@
       </div>
       <div class="mb-3">
         <label for="file">Sampul</label>
-        <input class="box__file" type="file" name="sampul" id="gambar" />
+        <input class="box__file" type="file" name="sampul" id="gambar1" />
         <br>
         <img src="#" id="preview-tag" style="max-height: 300px; max-width: 300px;" class="img-responsive"/>
       </div>

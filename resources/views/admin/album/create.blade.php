@@ -48,7 +48,7 @@
 
       <div class="form-group">
         <label for="sampul" class="form-label">Sampul</label>
-        <input type="file" id="gambar" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror">
+        <input type="file" id="gambar1" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror">
 
         <img src="#" id="preview-tag" width="200px" /> 
 

@@ -43,7 +43,8 @@
 
     <div class="mb-3">
       <label for="sampul" class="form-label">Gambar Sampul</label>
-      <input type="file" name="sampul" class="form-control p-1 @error('gambar') is-invalid @enderror">
+      <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror" id="gambar1">
+      <img src="#" id="preview-tag" style="max-height: 200px; max-width:200px" /> 
 
       @error('deskripsi')
       <div class="invalid-feedback">
@@ -114,6 +115,6 @@
 @stop
 
 @section('js')
-<script src="../../js/imgMultiPreview.js"></script>
-<script src="../../js/imgPreview.js"></script>
+<script src="{{ asset('/js/imgMultiPreview.js') }}"></script>
+<script src="{{ asset('/js/imgPreview.js') }}"></script>
 @stop

@@ -67,7 +67,8 @@
   
       <div class="form-group">
         <label for="gambar" class="form-label">Gambar/Pas Foto</label>
-        <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
+        <input type="file" id="gambar1" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror">
+        <img src="#" id="preview-tag" style="max-height: 200px; max-width:200px" />
   
         @error('gambar')
         <div class="invalid-feedback">
@@ -77,7 +78,7 @@
       </div>
   
       <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-      <a href="/admin/potensi" class="btn btn-secondary">Kembali</a>
+      <a href="/admin/pengurus" class="btn btn-secondary">Kembali</a>
     </form>
   </div>
 </div>
@@ -87,10 +88,7 @@
 @include('partials.footer')
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
 @section('js')
-    <script> console.log('Hi!'); </script>
+  {{-- <script src="../../js/imgMultiPreview.js"></script> --}}
+  <script src="{{ asset('/js/imgPreview.js') }}"></script>
 @stop

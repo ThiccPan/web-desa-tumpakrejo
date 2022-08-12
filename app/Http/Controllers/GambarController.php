@@ -80,7 +80,7 @@ class GambarController extends Controller
 
         $request->session()->flash('msg',"Data album berhasil ditambahkan");
 
-        return redirect()->back();
+        return redirect('/admin/album/' . $album->slug);
     }
 
     /**

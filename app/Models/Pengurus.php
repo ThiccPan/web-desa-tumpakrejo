@@ -9,7 +9,7 @@ class Pengurus extends Model
 {
     use HasFactory;
 
-    public $timestamp = false;
+    public $timestamps = false;
     public $incrementing = false;
 
     protected $table = 'pengurus';

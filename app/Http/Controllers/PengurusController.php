@@ -117,6 +117,8 @@ class PengurusController extends Controller
     {
         $pengurus = Pengurus::find($NIP);
 
+        // dd($pengurus);
+
         $validator = Validator::make($request->all(), [
             'NIP' => 'required|distinct',
             'jabatan' => 'required',
@@ -145,6 +147,7 @@ class PengurusController extends Controller
         $pengurus->nama = $validated['nama'];
         $pengurus->tanggal_menjabat = $validated['tanggal_menjabat'];
         $pengurus->gambar = $validated['gambar'];
+        $pengurus->save();
 
         $request->session()->flash('msg',"Data pengurus berhasil ditambahkan");
 

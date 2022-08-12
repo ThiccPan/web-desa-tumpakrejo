@@ -51,16 +51,20 @@
 
       <div class="mb-3">
         <label for="sampul" class="form-label">Sampul</label>
-        <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror"
-          value="{{ $produk->sampul }}">
-        <img src="{{ asset('storage/' . $produk->sampul) }}" alt="Gambar lama tidak ditemukan"
-          style="max-height: 200px; max-width: 200px;" class="img-responsive">
+        <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror" id="gambar1">
+        <img src="#" id="preview-tag" style="max-height: 200px; max-width:200px" /> 
 
         @error('deskripsi')
         <div class="invalid-feedback">
           {{ $message }}
         </div>
         @enderror
+      </div>
+
+      <div class="form-group">
+        <p><strong>Sampul Lama:</strong></p>
+        <img src="{{ asset('storage/' . $produk->sampul) }}" alt="Sampul lama tidak ditemukan"
+          style="max-height: 200px; max-width: 200px;" class="img-responsive">
       </div>
 
       <div class="mb-3">
@@ -96,18 +100,13 @@
 </div>
 
 <div class="card card-default">
-  <div class="card-header">
-    <h3 class="card-title">Data gambar produk</h3>
-  </div>
-
-  <div class="card-body">
-
+  <div class="card-header pt-4">
     <form action="/admin/produk/{{ $produk->slug }}/gambar/tambah" method="POST" enctype="multipart/form-data" class="row row-cols-lg-auto g-3 align-items-center">
       @csrf
       <div class="form-group col-8">
         <div class="input-group">
           <label for="" class="input-group-text">Tambah gambar: </label>
-          <input type="file" name="gambars[]" class="form-control p-1 @error('sampul') is-invalid @enderror" multiple required>
+          <input type="file" id="gambars" name="gambars[]" class="form-control p-1 @error('sampul') is-invalid @enderror" multiple required>
   
           @error('deskripsi')
           <div class="invalid-feedback">
@@ -120,12 +119,15 @@
         <input type="submit" value="Tambah" name="submit" class="btn btn-success">
       </div>
     </form>
+    <div class="col-md-12">
+      <div class="images-preview-div"> </div>
+    </div>
+  </div>
 
-    <hr>
+  <div class="card-body">
 
     <div class="form-group">
       <label for="">Daftar gambar produk</label>
-
 
       <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid"
         aria-describedby="example1_info">
@@ -167,9 +169,19 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="/css/admin_custom.css">
+<style>
+  .invalid-feedback {
+    display: block;
+  }
+  .images-preview-div img
+  {
+      padding: 10px;
+      max-width: 150px;
+  }
+</style>
 @stop
 
 @section('js')
-
+<script src="{{ asset('/js/imgMultiPreview.js') }}"></script>
+<script src="{{ asset('/js/imgPreview.js') }}"></script>
 @stop

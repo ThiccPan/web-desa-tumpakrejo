@@ -42,11 +42,7 @@
                   @csrf
                   @method('delete')
 
-                  <a href="/admin/album/{{ $gambar_album->slug }}/{{ $gambar->gambar }}">
-                    <div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>
-                  </a>
-
-                  <a class="btn btn-warning" href="/admin/album/{{ $gambar->slug }}/edit">
+                  <a class="btn btn-warning" href="/admin/album/{{ $gambar_album->slug }}/{{ $gambar->gambar }}">
                     Ubah
                   </a>
 

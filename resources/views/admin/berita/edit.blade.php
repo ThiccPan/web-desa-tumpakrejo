@@ -52,7 +52,8 @@
 
       <div class="form-group">
         <label for="sampul" class="form-label">sampul</label>
-        <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror">
+        <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror" id="gambar1">
+        <img src="#" id="preview-tag" style="max-height: 200px; max-width:200px" /> 
 
         @error('sampul')
         <div class="invalid-feedback">
@@ -89,14 +90,13 @@
 
 <div class="card card-default">
   <div class="card-header pt-4">
-
     <form action="/admin/berita/{{ $berita->slug }}/gambar/tambah" method="POST" enctype="multipart/form-data"
       class="row row-cols-lg-auto g-3 align-items-center">
       @csrf
       <div class="form-group col-8">
         <div class="input-group">
           <label for="" class="input-group-text">Tambah gambar: </label>
-          <input type="file" name="gambars[]" class="form-control p-1 @error('sampul') is-invalid @enderror" multiple
+          <input id="gambars" type="file" name="gambars[]" class="form-control p-1 @error('sampul') is-invalid @enderror" multiple
             required>
 
           @error('deskripsi')
@@ -110,6 +110,9 @@
         <input type="submit" value="Tambah" name="submit" class="btn btn-success">
       </div>
     </form>
+    <div class="col-md-12">
+      <div class="images-preview-div"> </div>
+    </div>
   </div>
 
   <div class="card-body">
@@ -157,5 +160,20 @@
 @include('partials.footer')
 @stop
 
+@section('css')
+<style>
+  .invalid-feedback {
+    display: block;
+  }
+  .images-preview-div img
+  {
+      padding: 10px;
+      max-width: 150px;
+  }
+</style>
+@stop
+
 @section('js')
+<script src="{{ asset('/js/imgMultiPreview.js') }}"></script>
+<script src="{{ asset('/js/imgPreview.js') }}"></script>
 @stop

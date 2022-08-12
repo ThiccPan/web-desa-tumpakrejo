@@ -49,7 +49,7 @@
           <button type="submit" class="btn btn-block btn-success">Tambah</button>
         </div>
         <div class="mr-2">
-          <a href="/admin/album">
+          <a href="/admin/album/{{ $album->slug }}">
             <button type="button" class="btn btn-block btn-danger">Batal</button>
           </a>
         </div>

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('plugins.Summernote', true)
-@section('title', 'Add New Post')
+@section('title', 'Ubah Potensi')
 
 @section('content_header')
 @if ($errors->any())
@@ -13,7 +13,7 @@
   </ul>
 </div>
 @endif
-<h1>Tambahkan Potensi Baru</h1>
+<h1>Ubah Potensi</h1>
 @stop
 
 @section('content')
@@ -51,8 +51,8 @@
 
       <div class="form-group">
         <label for="sampul" class="form-label">Sampul: </label>
-        <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror"
-          value="{{ $potensi->sampul }}">
+        <input type="file" name="sampul" class="form-control p-1 @error('sampul') is-invalid @enderror" id="gambar1">
+        <img src="#" id="preview-tag" style="max-height: 200px; max-width:200px" /> 
 
         @error('sampul')
         <div class="invalid-feedback">
@@ -95,8 +95,7 @@
       <div class="form-group col-8">
         <div class="input-group">
           <label for="" class="input-group-text">Tambah gambar: </label>
-          <input type="file" name="gambars[]" class="form-control p-1 @error('sampul') is-invalid @enderror" multiple
-            required>
+          <input type="file" id="gambars" name="gambars[]" class="form-control p-1 @error('sampul') is-invalid @enderror" multiple required>
 
           @error('deskripsi')
           <div class="invalid-feedback">
@@ -109,6 +108,9 @@
         <input type="submit" value="Tambah" name="submit" class="btn btn-success">
       </div>
     </form>
+    <div class="col-md-12">
+      <div class="images-preview-div"> </div>
+    </div>
   </div>
 
   <div class="card-body">
@@ -156,5 +158,20 @@
 @include('partials.footer')
 @stop
 
+@section('css')
+<style>
+  .invalid-feedback {
+    display: block;
+  }
+  .images-preview-div img
+  {
+      padding: 10px;
+      max-width: 150px;
+  }
+</style>
+@stop
+
 @section('js')
+<script src="{{ asset('/js/imgMultiPreview.js') }}"></script>
+<script src="{{ asset('/js/imgPreview.js') }}"></script>
 @stop
