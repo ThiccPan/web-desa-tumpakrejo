@@ -250,7 +250,7 @@ return [
         [
             'text'        => 'Berita',
             'url'         => 'admin/berita',
-            'icon'        => 'fas fa-fw fa-image',
+            'icon'        => 'fas fa-fw fa-edit',
             'label'       => '',
             'label_color' => '',
         ],
@@ -279,10 +279,15 @@ return [
         [
             'text' => 'Galeri',
             'url'  => 'admin/album',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-image',
         ],
 
         ['header' => 'Data'],
+        [
+            'text'       => 'Profil',
+            'url'        => 'admin/profil',
+            'icon'       => 'fas fa-fw fa-users',
+        ],
         [
             'text'       => 'Pengurus',
             'url'        => 'admin/pengurus',

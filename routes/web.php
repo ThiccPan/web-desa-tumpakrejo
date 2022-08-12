@@ -8,6 +8,7 @@ use App\Http\Controllers\PotensiController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\PengurusController;
+use App\Http\Controllers\ProfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,10 +93,12 @@ Route::middleware(['auth'])->group(function(){
   Route::put('/admin/album/update/{gambar}', [GambarController::class,'update']);
   
   // Gambar route
-  // Route::resource('/admin/gambar', GambarController::class);
-
   Route::get('/admin/gambar', [GambarController::class,'index']);
-  // Route::get('/admin/gambar/{NIP}', [GambarController::class,'show']);
+
+  // Profil route
+  Route::get('/admin/profil', [ProfilController::class,'index']);
+  Route::get('/admin/profil/{profil}', [ProfilController::class,'edit']);
+  Route::put('/admin/profil/{profil}/update', [ProfilController::class,'update']);
 });
 
 Auth::routes(['register'=>false]);  
