@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\Display\FrontWebController as DisplayFrontWebController;
+use App\Http\Controllers\Display\AparaturController as DisplayAparaturController;
+use App\Http\Controllers\Display\BeritaController as DisplayBeritaController;
 use App\Http\Controllers\GambarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PotensiController;
@@ -101,6 +104,18 @@ Route::middleware(['auth'])->group(function(){
   Route::put('/admin/profil/{profil}/update', [ProfilController::class,'update']);
 });
 
-Auth::routes(['register'=>false]);  
+Auth::routes(['register'=>false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [DisplayFrontWebController::class, 'index']);
+
+Route::get('/about', [DisplayFrontWebController::class, 'about']);
+
+Route::get('/visi-misi',[DisplayFrontWebController::class, 'visiMisi']);
+
+Route::get('/aparatur', [DisplayAparaturController::class, 'index']);
+
+Route::get('/berita', [DisplayBeritaController::class, 'index']);
+Route::get('/berita/{post:slug}', [DisplayBeritaController::class, 'show']);
+
+Route::get('/potensi', [PotensiController::class, 'index']);
+Route::get('/potensi/{post:slug}', [PotensiController::class, 'show']);

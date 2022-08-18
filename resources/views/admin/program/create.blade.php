@@ -98,8 +98,8 @@
 @stop
 
 @section('footer')
-@include('partials.footer')
-@stop 
+@include('partials.footerAdmin')
+@stop
 
 @section('css')
 <style>

@@ -77,11 +77,5 @@
 @stop
 
 @section('footer')
-@include('partials.footer')
-@stop
-
-@section('css')
-@stop
-
-@section('js')
+@include('partials.footerAdmin')
 @stop
