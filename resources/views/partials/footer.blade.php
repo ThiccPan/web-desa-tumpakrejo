@@ -38,35 +38,53 @@
       <div class="col-6 mb-3">
         <h5>DESA TUMPAKREJO</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2 text-muted">Desa Tumpakrejo, Kecamatan Gedangan,</li>
-          <li class="nav-item mb-2 text-muted">Kabupaten Malang, Provinsi Jawa Timur</li>
-          <li class="nav-item mb-2 text-muted">tumpakrejo@gmail.com</li>
-          <li class="nav-item mb-2 text-muted">08123456789</li>
+          <li class="nav-item mb-2 text">Desa Tumpakrejo, Kecamatan Gedangan,</li>
+          <li class="nav-item mb-2 text">Kabupaten Malang, Provinsi Jawa Timur</li>
+          <li class="nav-item mb-2 text">desa-tumpakrejo-gedangan@malangkab.go.id</li>
+          <li class="nav-item mb-2 text">0822-3405-0183</li>
         </ul>
       </div>
 
       <div class="col-md-5 offset-md-1 mb-3">
         <ul class="nav col-md-4 justify-content-end list-unstyled flex-column">
           <li class="ms-3">
-            <a class="text-muted" href="#">
-              <i class="bi-twitter" width="24" height="24"><use xlink:href="#twitter"> Twitter</use></i>
+            <a class="text" href="https://twitter.com/KominfoKabMlg">
+              <i class="bi-twitter" width="24" height="24">
+                <use xlink:href=""> Twitter</use>
+              </i>
             </a>
           </li>
           <li class="ms-3">
-            <a class="text-muted" href="#">
-              <i class="bi-instagram" width="24" height="24"><use xlink:href="#instagram"> Instagram</use></i>
+            <a class="text" href="https://www.instagram.com/desatumpakrejo/?hl=en">
+              <i class="bi-instagram" width="24" height="24">
+                <use xlink:href=""> Instagram</use>
+              </i>
             </a>
           </li>
           <li class="ms-3">
-            <a class="text-muted" href="#">
-              <i class="bi-facebook" width="24" height="24"><use xlink:href="#facebook"> Facebook</use></i>
+            <a class="text" href="https://www.facebook.com/desatumpakrejogedangan">
+              <i class="bi-facebook" width="24" height="24">
+                <use xlink:href=""> Facebook</use>
+              </i>
             </a>
           </li>
           <li class="ms-3">
-            <a class="text-muted" href="#">
-              <i class="bi-youtube" width="24" height="24"><use xlink:href="#facebook"> Youtube</use></i>
+            <a class="text" href="https://www.youtube.com/channel/UCefgv9Vn7UVTHwAg1Ihlq0Q">
+              <i class="bi-youtube" width="24" height="24">
+                <use xlink:href=""> Youtube</use>
+              </i>
             </a>
           </li>
+
+          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#twitter" />
+              </svg></a></li>
+          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#instagram" />
+              </svg></a></li>
+          <li class="ms-3"><a class="text-muted" href="#"><svg class="bi" width="24" height="24">
+                <use xlink:href="#facebook" />
+              </svg></a></li>
         </ul>
       </div>
     </div>

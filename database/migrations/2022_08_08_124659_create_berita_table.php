@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('slug');
-            $table->string('deskripsi');
+            $table->longText('deskripsi');
             $table->string('sampul')->nullable();
             $table->timestamps();
             $table->string('penulis');

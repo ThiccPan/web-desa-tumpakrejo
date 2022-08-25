@@ -100,7 +100,7 @@ class BeritaController extends Controller
 
         $request->session()->flash('msg',"Data Berita berhasil ditambahkan");
 
-        return redirect('/admin/program/');        
+        return redirect('/admin/berita/');        
     }
 
     public function storeImages(Request $request, Berita $berita)

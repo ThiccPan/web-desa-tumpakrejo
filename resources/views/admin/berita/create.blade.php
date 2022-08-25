@@ -80,7 +80,7 @@
     </div>
 
     <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-    <a href="/admin/produk" class="btn btn-secondary">Kembali</a>
+    <a href="/admin/berita" class="btn btn-secondary">Kembali</a>
   </form>
 @stop
 

@@ -227,7 +227,6 @@ class PotensiController extends Controller
     public function destroy(Potensi $potensi)
     {    
         foreach ($potensi->gambar as $gambar) {
-            dd($gambar->gambar);
             if (Storage::exists('post-images/' . $gambar->gambar)) {
                 Storage::delete('post-images/' . $gambar->gambar);
             } 

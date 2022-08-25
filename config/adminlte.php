@@ -105,7 +105,7 @@ return [
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
-    'classes_auth_footer' => '',
+    'classes_auth_footer' => 'hidden',
     'classes_auth_icon' => '',
     'classes_auth_btn' => 'btn-flat btn-primary',
 
@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -246,7 +246,7 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        ['header' => 'Berita'],
+        ['header' => 'Artikel'],
         [
             'text'        => 'Berita',
             'url'         => 'admin/berita',
@@ -284,7 +284,7 @@ return [
 
         ['header' => 'Data'],
         [
-            'text'       => 'Profil',
+            'text'       => 'Profil Desa',
             'url'        => 'admin/profil',
             'icon'       => 'fas fa-fw fa-users',
         ],

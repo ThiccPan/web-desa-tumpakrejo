@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\Display\AlbumController as DisplayAlbumController;
 use App\Http\Controllers\Display\FrontWebController as DisplayFrontWebController;
 use App\Http\Controllers\Display\AparaturController as DisplayAparaturController;
 use App\Http\Controllers\Display\BeritaController as DisplayBeritaController;
+use App\Http\Controllers\Display\PotensiController as DisplayPotensiController;
+use App\Http\Controllers\Display\ProdukController as DisplayProdukController;
+use App\Http\Controllers\Display\ProgramController as DisplayProgramController;
 use App\Http\Controllers\GambarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PotensiController;
@@ -117,5 +121,20 @@ Route::get('/aparatur', [DisplayAparaturController::class, 'index']);
 Route::get('/berita', [DisplayBeritaController::class, 'index']);
 Route::get('/berita/{post:slug}', [DisplayBeritaController::class, 'show']);
 
-Route::get('/potensi', [PotensiController::class, 'index']);
-Route::get('/potensi/{post:slug}', [PotensiController::class, 'show']);
+Route::get('/potensi', [DisplayPotensiController::class, 'index']);
+Route::get('/potensi/{post:slug}', [DisplayPotensiController::class, 'show']);
+
+Route::get('/produk', [DisplayProdukController::class, 'index']);
+Route::get('/produk/{post:slug}', [DisplayProdukController::class, 'show']);
+
+Route::get('/program', [DisplayProgramController::class, 'index']);
+Route::get('/program/{post:slug}', [DisplayProgramController::class, 'show']);
+
+Route::get('/galeri', [DisplayAlbumController::class, 'index']);
+Route::get('/galeri/{album:slug}', [DisplayAlbumController::class, 'show']);
+
+Route::get('/admin/symlink', function () {
+  $target  = storage_path('app/post-images');
+  $link    = asset('storage');
+  symlink($target, $link);
+});

@@ -40,6 +40,7 @@
         @enderror
       </div>
 
+      @if ($profil->id == 3)    
       <div class="mb-3">
         <label for="gambar" class="form-label">gambar</label>
         <input type="file" name="gambar" class="form-control p-1 @error('gambar') is-invalid @enderror"
@@ -53,6 +54,7 @@
         </div>
         @enderror
       </div>
+      @endif
 
       <div class="mb-3">
         <input type="submit" value="Submit" name="submit" class="btn btn-primary">

@@ -11,7 +11,7 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex flex-row justify-content-end">
-        <form action="/admin/potensi/{{ $potensi->slug }}" method="post">
+        <form action="/admin/potensi/{{ $potensi->slug }}/destroy" method="post">
           @csrf
           @method('delete')
 
