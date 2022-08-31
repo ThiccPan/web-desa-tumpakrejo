@@ -132,9 +132,3 @@ Route::get('/program/{post:slug}', [DisplayProgramController::class, 'show']);
 
 Route::get('/galeri', [DisplayAlbumController::class, 'index']);
 Route::get('/galeri/{album:slug}', [DisplayAlbumController::class, 'show']);
-
-Route::get('/admin/symlink', function () {
-  $target  = storage_path('app/post-images');
-  $link    = asset('storage');
-  symlink($target, $link);
-});
