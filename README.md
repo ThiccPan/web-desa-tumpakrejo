@@ -2,4 +2,12 @@
 
 ## Website Desa Tumpakrejo
 
-repository untuk luaran program kerja website, berupa kode dari website tersebut.
+ini adalah repository untuk kode dari website desa tumpakrejo. website desa dapat dilihat pada link berikut:
+[desatumpakrejo.com](desatumpakrejo.com)
+
+Anggota program website: 
+- Ivan Hilmi Derian (205150400111064)
+- Rizqi Maulana Hafidz (205150200111027)
+- Octavia Lintang Pramesti (205150700111050)
+- Shafatyra Reditha Shalsadilla (205150207111004) 
+- Muhammad Fuad Rahmawan (205150307111022)
